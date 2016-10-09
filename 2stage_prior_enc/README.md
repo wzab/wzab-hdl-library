@@ -2,12 +2,15 @@ Two-phase configurable priority encoder in VHDL
 ===============================================
 This code has been published first on 21st of September 2016 as PUBLIC DOMAIN at usenet alt.sources group
 with the subject "Two-phase configurable priority encoder in VHDL".
+
 The post is available in the [google archive](https://groups.google.com/forum/#!topic/alt.sources/vMhX5RKEDPY)
 
 This archive contains sources of the priority encoder, that returns number of the first input with '1'.
+
 The entity is defined as:
 
-`entity two_prior_enc is
+```
+entity two_prior_enc is
   generic(
     N_INPUTS   : integer := 32;         -- Number of inputs
     N_1ST_BITS : integer := 3           -- Number of bits in the 1st stage
@@ -18,12 +21,14 @@ The entity is defined as:
         clk    : in  std_logic;
         rst_p  : in  std_logic);
 end two_prior_enc;
-`
+```
 
 `N_INPUTS` is the total number of inputs.
 `N_1ST_BITS` is the number of bits handled on the 1st stage.
+
 The inputs are divided into groups of `2**N_1ST_BITS` bits.
 At the falling edge of the clock, the 1st '1' is found in each group.
+
 At the rising edge of the clock the first group with '1' is found
 and the number of group and the number of the input in the group is encoded.
 
