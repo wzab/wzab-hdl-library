@@ -4,33 +4,6 @@ This first version of this code has been published first on 19th of March 2012 a
 with the subject "Script to generate VHDL package for conversion between the record type and std_logic_vector".
 The post is available in the [google archive](https://groups.google.com/forum/#!topic/alt.sources/U-phIIAT6dE)
 
-
-This is the new, corrected version of the previous rec_to_pkg.py tool.
-Basing on the record description file, it generates the VHDL package,
-that defines the record type and provides the conversion functions
-for conversion of the records into std_logic_vector of tha appropriate
-length, and from std_logic vector to the record.
-
-This rec_to_pkg_nest.py may handle the nested records and the arrays of record types.
-Additionally it is possible to specify comments, that should be written at the begining
-of the generated VHDL package (they should start with double hash '##').
-
-The sources contain the example record definition file, and a testbench
-showing the operation.
-If you have ghdl and gtkwave installed, run the run_test.sh to see the
-demonstration.
-
-Please note that the code is published as PUBLIC DOMAIN or under Creative
-Commons CC0 license.
-However, if you create any derived work, please provide information
-about the original author.
-
-This is a free code. I do not provide any warranty. You use it on your
-own risk.
-
-With best regards,
-Wojtek
-
 The record types in VHDL are very useful when designing more
 complicated systems. However if you need to store data of record
 types to memory or FIFO, it is necessary to convert such data 
@@ -73,6 +46,9 @@ end
 I hope, that you'll find this script useful.
 As it is published as PUBLIC DOMAIN or under Creative Commons CC0 license, you are free to modify and use it
 in any way you want.
+
+However, if you create any derived work, please provide information
+about the original author.
 
 Wojciech M. Zabolotny
 wzab01@gmail.com
