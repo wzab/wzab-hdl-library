@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Fri Sep  9 15:13:53 2016
+[*]
+[dumpfile] "/tmp/tmp_prenc/two_prior_enc_tb.ghw"
+[dumpfile_mtime] "Fri Sep  9 15:13:02 2016"
+[dumpfile_size] 233956
+[savefile] "/tmp/tmp_prenc/two_prior_enc_tb.sav"
+[timestart] 0
+[size] 1600 846
+[pos] -1 -1
+*-25.487499 210000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.two_prior_enc_tb.
+[treeopen] top.two_prior_enc_tb.dut.
+[sst_width] 210
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 243
+@22
+#{top.two_prior_enc_tb.inputs[127:0]} top.two_prior_enc_tb.inputs[127] top.two_prior_enc_tb.inputs[126] top.two_prior_enc_tb.inputs[125] top.two_prior_enc_tb.inputs[124] top.two_prior_enc_tb.inputs[123] top.two_prior_enc_tb.inputs[122] top.two_prior_enc_tb.inputs[121] top.two_prior_enc_tb.inputs[120] top.two_prior_enc_tb.inputs[119] top.two_prior_enc_tb.inputs[118] top.two_prior_enc_tb.inputs[117] top.two_prior_enc_tb.inputs[116] top.two_prior_enc_tb.inputs[115] top.two_prior_enc_tb.inputs[114] top.two_prior_enc_tb.inputs[113] top.two_prior_enc_tb.inputs[112] top.two_prior_enc_tb.inputs[111] top.two_prior_enc_tb.inputs[110] top.two_prior_enc_tb.inputs[109] top.two_prior_enc_tb.inputs[108] top.two_prior_enc_tb.inputs[107] top.two_prior_enc_tb.inputs[106] top.two_prior_enc_tb.inputs[105] top.two_prior_enc_tb.inputs[104] top.two_prior_enc_tb.inputs[103] top.two_prior_enc_tb.inputs[102] top.two_prior_enc_tb.inputs[101] top.two_prior_enc_tb.inputs[100] top.two_prior_enc_tb.inputs[99] top.two_prior_enc_tb.inputs[98] top.two_prior_enc_tb.inputs[97] top.two_prior_enc_tb.inputs[96] top.two_prior_enc_tb.inputs[95] top.two_prior_enc_tb.inputs[94] top.two_prior_enc_tb.inputs[93] top.two_prior_enc_tb.inputs[92] top.two_prior_enc_tb.inputs[91] top.two_prior_enc_tb.inputs[90] top.two_prior_enc_tb.inputs[89] top.two_prior_enc_tb.inputs[88] top.two_prior_enc_tb.inputs[87] top.two_prior_enc_tb.inputs[86] top.two_prior_enc_tb.inputs[85] top.two_prior_enc_tb.inputs[84] top.two_prior_enc_tb.inputs[83] top.two_prior_enc_tb.inputs[82] top.two_prior_enc_tb.inputs[81] top.two_prior_enc_tb.inputs[80] top.two_prior_enc_tb.inputs[79] top.two_prior_enc_tb.inputs[78] top.two_prior_enc_tb.inputs[77] top.two_prior_enc_tb.inputs[76] top.two_prior_enc_tb.inputs[75] top.two_prior_enc_tb.inputs[74] top.two_prior_enc_tb.inputs[73] top.two_prior_enc_tb.inputs[72] top.two_prior_enc_tb.inputs[71] top.two_prior_enc_tb.inputs[70] top.two_prior_enc_tb.inputs[69] top.two_prior_enc_tb.inputs[68] top.two_prior_enc_tb.inputs[67] top.two_prior_enc_tb.inputs[66] top.two_prior_enc_tb.inputs[65] top.two_prior_enc_tb.inputs[64] top.two_prior_enc_tb.inputs[63] top.two_prior_enc_tb.inputs[62] top.two_prior_enc_tb.inputs[61] top.two_prior_enc_tb.inputs[60] top.two_prior_enc_tb.inputs[59] top.two_prior_enc_tb.inputs[58] top.two_prior_enc_tb.inputs[57] top.two_prior_enc_tb.inputs[56] top.two_prior_enc_tb.inputs[55] top.two_prior_enc_tb.inputs[54] top.two_prior_enc_tb.inputs[53] top.two_prior_enc_tb.inputs[52] top.two_prior_enc_tb.inputs[51] top.two_prior_enc_tb.inputs[50] top.two_prior_enc_tb.inputs[49] top.two_prior_enc_tb.inputs[48] top.two_prior_enc_tb.inputs[47] top.two_prior_enc_tb.inputs[46] top.two_prior_enc_tb.inputs[45] top.two_prior_enc_tb.inputs[44] top.two_prior_enc_tb.inputs[43] top.two_prior_enc_tb.inputs[42] top.two_prior_enc_tb.inputs[41] top.two_prior_enc_tb.inputs[40] top.two_prior_enc_tb.inputs[39] top.two_prior_enc_tb.inputs[38] top.two_prior_enc_tb.inputs[37] top.two_prior_enc_tb.inputs[36] top.two_prior_enc_tb.inputs[35] top.two_prior_enc_tb.inputs[34] top.two_prior_enc_tb.inputs[33] top.two_prior_enc_tb.inputs[32] top.two_prior_enc_tb.inputs[31] top.two_prior_enc_tb.inputs[30] top.two_prior_enc_tb.inputs[29] top.two_prior_enc_tb.inputs[28] top.two_prior_enc_tb.inputs[27] top.two_prior_enc_tb.inputs[26] top.two_prior_enc_tb.inputs[25] top.two_prior_enc_tb.inputs[24] top.two_prior_enc_tb.inputs[23] top.two_prior_enc_tb.inputs[22] top.two_prior_enc_tb.inputs[21] top.two_prior_enc_tb.inputs[20] top.two_prior_enc_tb.inputs[19] top.two_prior_enc_tb.inputs[18] top.two_prior_enc_tb.inputs[17] top.two_prior_enc_tb.inputs[16] top.two_prior_enc_tb.inputs[15] top.two_prior_enc_tb.inputs[14] top.two_prior_enc_tb.inputs[13] top.two_prior_enc_tb.inputs[12] top.two_prior_enc_tb.inputs[11] top.two_prior_enc_tb.inputs[10] top.two_prior_enc_tb.inputs[9] top.two_prior_enc_tb.inputs[8] top.two_prior_enc_tb.inputs[7] top.two_prior_enc_tb.inputs[6] top.two_prior_enc_tb.inputs[5] top.two_prior_enc_tb.inputs[4] top.two_prior_enc_tb.inputs[3] top.two_prior_enc_tb.inputs[2] top.t
+@28
+top.two_prior_enc_tb.dut.rst_p
+top.two_prior_enc_tb.dut.clk
+top.two_prior_enc_tb.dut.found
+top.two_prior_enc_tb.dut.first
+[pattern_trace] 1
+[pattern_trace] 0
