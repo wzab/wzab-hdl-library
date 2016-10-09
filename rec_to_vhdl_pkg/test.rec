@@ -1,0 +1,29 @@
+## The test_pkg is created to test the rec_to_pkg_new.py tool
+## It is published as PUBLIC DOMAIN or Creative Commons CC0
+## 
+package test_pkg
+# First we define nested records
+# Subrecord 1
+record sub_rec1
+ p1,unsigned,4
+ stb,std_logic
+end
+
+# Subrecord 2
+record sub_rec2
+ f1,std_logic
+ f2,std_logic_vector,1,4
+ f3,unsigned,3
+end
+
+# Now we define our main record
+record test_rec
+  # nmbr - number of the record
+  nmbr,unsigned,6
+  # nested subrecord 2
+  srec2,rec,sub_rec2
+  # flags
+  flags,std_logic_vector,5,1
+  # nested subrecord 1
+  srec1,rec,sub_rec1
+end

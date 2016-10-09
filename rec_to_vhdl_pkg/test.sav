@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Wed Sep 21 08:27:53 2016
+[*]
+[dumpfile] "/home/wzab/biezace/VHDL/rec_to_pkg_new/check/test.ghw"
+[dumpfile_mtime] "Wed Sep 21 08:27:17 2016"
+[dumpfile_size] 930
+[savefile] "/home/wzab/biezace/VHDL/rec_to_pkg_new/check/test.sav"
+[timestart] 0
+[size] 1000 600
+[pos] 248 42
+*-23.924660 20000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.test_tb.
+[treeopen] top.test_tb.din.
+[treeopen] top.test_tb.din.srec1.
+[treeopen] top.test_tb.din.srec2.
+[treeopen] top.test_tb.dout.
+[treeopen] top.test_tb.dout.srec1.
+[treeopen] top.test_tb.dout.srec2.
+[sst_width] 210
+[signals_width] 142
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@200
+-din
+@28
+top.test_tb.din.srec1.stb
+@22
+#{top.test_tb.din.srec1.p1[3:0]} top.test_tb.din.srec1.p1[3] top.test_tb.din.srec1.p1[2] top.test_tb.din.srec1.p1[1] top.test_tb.din.srec1.p1[0]
+#{top.test_tb.din.flags[5:1]} top.test_tb.din.flags[5] top.test_tb.din.flags[4] top.test_tb.din.flags[3] top.test_tb.din.flags[2] top.test_tb.din.flags[1]
+@28
+top.test_tb.din.srec2.f1
+#{top.test_tb.din.srec2.f3[2:0]} top.test_tb.din.srec2.f3[2] top.test_tb.din.srec2.f3[1] top.test_tb.din.srec2.f3[0]
+@22
+#{top.test_tb.din.srec2.f2[4:1]} top.test_tb.din.srec2.f2[4] top.test_tb.din.srec2.f2[3] top.test_tb.din.srec2.f2[2] top.test_tb.din.srec2.f2[1]
+#{top.test_tb.din.nmbr[5:0]} top.test_tb.din.nmbr[5] top.test_tb.din.nmbr[4] top.test_tb.din.nmbr[3] top.test_tb.din.nmbr[2] top.test_tb.din.nmbr[1] top.test_tb.din.nmbr[0]
+@200
+-dout
+@28
+top.test_tb.dout.srec1.stb
+@22
+#{top.test_tb.dout.srec1.p1[3:0]} top.test_tb.dout.srec1.p1[3] top.test_tb.dout.srec1.p1[2] top.test_tb.dout.srec1.p1[1] top.test_tb.dout.srec1.p1[0]
+#{top.test_tb.dout.flags[5:1]} top.test_tb.dout.flags[5] top.test_tb.dout.flags[4] top.test_tb.dout.flags[3] top.test_tb.dout.flags[2] top.test_tb.dout.flags[1]
+@28
+top.test_tb.dout.srec2.f1
+#{top.test_tb.dout.srec2.f3[2:0]} top.test_tb.dout.srec2.f3[2] top.test_tb.dout.srec2.f3[1] top.test_tb.dout.srec2.f3[0]
+@22
+#{top.test_tb.dout.srec2.f2[4:1]} top.test_tb.dout.srec2.f2[4] top.test_tb.dout.srec2.f2[3] top.test_tb.dout.srec2.f2[2] top.test_tb.dout.srec2.f2[1]
+#{top.test_tb.dout.nmbr[5:0]} top.test_tb.dout.nmbr[5] top.test_tb.dout.nmbr[4] top.test_tb.dout.nmbr[3] top.test_tb.dout.nmbr[2] top.test_tb.dout.nmbr[1] top.test_tb.dout.nmbr[0]
+@200
+-test_vec
+@22
+#{top.test_tb.test_vec[23:0]} top.test_tb.test_vec[23] top.test_tb.test_vec[22] top.test_tb.test_vec[21] top.test_tb.test_vec[20] top.test_tb.test_vec[19] top.test_tb.test_vec[18] top.test_tb.test_vec[17] top.test_tb.test_vec[16] top.test_tb.test_vec[15] top.test_tb.test_vec[14] top.test_tb.test_vec[13] top.test_tb.test_vec[12] top.test_tb.test_vec[11] top.test_tb.test_vec[10] top.test_tb.test_vec[9] top.test_tb.test_vec[8] top.test_tb.test_vec[7] top.test_tb.test_vec[6] top.test_tb.test_vec[5] top.test_tb.test_vec[4] top.test_tb.test_vec[3] top.test_tb.test_vec[2] top.test_tb.test_vec[1] top.test_tb.test_vec[0]
+[pattern_trace] 1
+[pattern_trace] 0
