@@ -24,7 +24,7 @@ between the VHDL records containing `signed`, `unsigned`,
 Additionally, the record may contain also another record,
 defined previously in the same decription file.
 
-It should be called as: rec_to_pkg_nest.py description_file
+It should be called as: `rec_to_pkg_nest.py description_file`
 where the description file should have the following syntax:
 
 ```
