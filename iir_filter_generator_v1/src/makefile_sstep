@@ -1,0 +1,24 @@
+VHDLS = \
+  fixed_prec.vhd \
+  iir_fphdl_pkg.vhd \
+  filtdef.vhd \
+  iir_fphdl_sstep.vhd \
+  iir_tb_sstep.vhd \
+  
+ENTITY=iir_tb
+
+#STD=standard
+STD=synopsys
+all: ${ENTITY}.ghw
+
+reader:   ${ENTITY} ${ENTITY}.ghw
+	gtkwave ${ENTITY}.ghw {ENTITY}.sav
+${ENTITY}: ${VHDLS}
+	ghdl -a --std=93c -Pip --ieee=${STD} ${VHDLS} 
+	ghdl -e --std=93c -Pip -fexplicit --ieee=${STD} ${ENTITY}
+${ENTITY}.ghw: ${ENTITY}
+	./${ENTITY} --wave=${ENTITY}.ghw --stop-time=10000ns
+#	./${ENTITY} --trace-processes --trace-signals --wave=${ENTITY}.ghw --stop-time=50000ns
+clean:
+	rm *.o *.vcd *.ghw rm ${ENTITY}
+	
