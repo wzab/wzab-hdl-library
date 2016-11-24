@@ -48,22 +48,24 @@ http://www.vhdl.org/fphdl/xilinx_11.zip sources.
 For synthesis I've used the following sources (contents of the .prj file)
 
 For "multiple steps" configuration:
-vhdl ieee_proposed "../fphdl/fixed_float_types_c.vhdl"
-vhdl ieee_proposed "../fphdl/fixed_pkg_c.vhdl"
-vhdl work "../fixed_prec.vhd"
-vhdl work "../iir_fphdl_pkg.vhd"
-vhdl work "../iir_fphdl_mstep.vhd"
-vhdl work "../filtdef.vhd"
-vhdl work "../iir_top_mstep.vhd"
+
+    vhdl ieee_proposed "../fphdl/fixed_float_types_c.vhdl"
+    vhdl ieee_proposed "../fphdl/fixed_pkg_c.vhdl"
+    vhdl work "../fixed_prec.vhd"
+    vhdl work "../iir_fphdl_pkg.vhd"
+    vhdl work "../iir_fphdl_mstep.vhd"
+    vhdl work "../filtdef.vhd"
+    vhdl work "../iir_top_mstep.vhd"
 
 For "single step" configuration:
-vhdl ieee_proposed "../fphdl/fixed_float_types_c.vhdl"
-vhdl ieee_proposed "../fphdl/fixed_pkg_c.vhdl"
-vhdl work "../fixed_prec.vhd"
-vhdl work "../iir_fphdl_pkg.vhd"
-vhdl work "../iir_fphdl_sstep.vhd"
-vhdl work "../filtdef.vhd"
-vhdl work "../iir_top_sstep.vhd"
+    
+    vhdl ieee_proposed "../fphdl/fixed_float_types_c.vhdl"
+    vhdl ieee_proposed "../fphdl/fixed_pkg_c.vhdl"
+    vhdl work "../fixed_prec.vhd"
+    vhdl work "../iir_fphdl_pkg.vhd"
+    vhdl work "../iir_fphdl_sstep.vhd"
+    vhdl work "../filtdef.vhd"
+    vhdl work "../iir_top_sstep.vhd"
 
 Plese try to synthesize filter defined currently in filter_test.m
 into 3s250eft256 device and into 3s500eft256 device to see the difference
