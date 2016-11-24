@@ -1,4 +1,4 @@
-Two-phase configurable priority encoder in VHDL
+Behavioral but synthesizable implementation of IIR filters in VHDL
 ===============================================
 This code has been published first on 2nd of April 2011 as PUBLIC DOMAIN at usenet alt.sources group
 with the subject "Behavioral but synthesizable implementation of IIR filters in VHDL".
