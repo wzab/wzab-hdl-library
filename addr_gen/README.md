@@ -123,9 +123,9 @@ Connection of signals in the VHDL code may be done as follows:
 
 )
 
-	-- Process for connecting the signals
-    	process (all) is
-	    begin  -- process
+	 -- Process for connecting the signals
+    	 process (all) is
+	 begin  -- process
 	      stat_reg(tad_addr.addr_ver) <= std_logic_vector(to_unsigned(32,ADDR_VERSION));
 	      stat_reg(tad_addr.top_st) <= s_top_status;
 	      s_top_control <= ctrl_reg(tad_addr.sys_ctrl);
@@ -141,7 +141,7 @@ Connection of signals in the VHDL code may be done as follows:
 	         -- Similar loop for I2C slaves
 	      end loop;  -- an
 	      -- Similar loop for B Blocks
-	    end process;
+	 end process;
 
 The presented approach allows to maintain addresses allocation during the long term development of the design.
 I'll appreciate any improvements, suggestions and corrections.
