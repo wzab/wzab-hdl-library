@@ -64,4 +64,4 @@ gen_vhdl_addr_package("top_adr_pkg","",top_def,0,0)
 gen_python_addr_module("top_adr",top_def,0,0)
 
 #Generate the IPbus address table in XML
-gen_ipbus_xml_table("top",top_def,0,0)
+gen_ipbus_xml_table("top",top_def,0)

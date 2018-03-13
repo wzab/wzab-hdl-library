@@ -20,6 +20,28 @@ class aobj(object):
      glb.defs.append(self)
   def a(self,child):
      self.children.append(child)
+
+  def get_creg_sreg_nums(self):
+     creg_num=0
+     sreg_num=0
+     if self.name=="SREG":
+        sreg_num += 1
+     elif self.name == "CREG":
+        creg_num += 1
+     else:
+        for cd in self.children:
+           if len(cd)==2:
+              #single object
+              (c_creg_num,c_sreg_num)=cd[1].get_creg_sreg_nums()
+              sreg_num += c_sreg_num
+              creg_num += c_creg_num
+           elif len(cd)==3:
+              #array of objects
+              (c_creg_num,c_sreg_num)=cd[1].get_creg_sreg_nums()
+              sreg_num += cd[2]*c_sreg_num
+              creg_num += cd[2]*c_creg_num
+     return (creg_num,sreg_num)
+
   def gen_vhdl_types(self):
      # This function browses the definition and generates the necessary types
      if (self.name=="SREG") or (self.name == "CREG"):
@@ -37,6 +59,7 @@ class aobj(object):
         res += "end record TAD_"+self.name+";\n"
         res += "type TAD_ARR_"+self.name+" is array(natural range <>) of TAD_"+self.name+";\n"
      return res
+
   def gen_vhdl_addr(self,creg_base,sreg_base):
      #This function returns the initializer with addresses, creg_base is the base for control registers
      #sreg_base is the base for status registers
@@ -200,11 +223,19 @@ def gen_python_addr_module(module_name,root,creg_base,sreg_base):
   root.name+"=Struct("+root.name+"_dict)\n")
   fo.close()
 
-def gen_ipbus_xml_table(module_name,root,creg_base,sreg_base):
+def gen_ipbus_xml_table(module_name,root,reg_base):
+  #First we calculate the number of CREG and SREG registers
+  (creg_num,sreg_num) = root.get_creg_sreg_nums()
+  #Calculate the required size of register's set
+  msize=max(0,creg_num-1,sreg_num-1)
+  #Dirty trick - we find the number of bits by conversion to the binary
+  #string, and subtracting 2 (for initial '0b')
+  mbits=len(bin(msize))-2;
+  creg_shift=1<<mbits;
   fo = open(module_name+".xml","w")
   #fo.write(""
   #"")
-  (res,creg_base,sreg_base)=root.gen_ipbus_xml(module_name,0,creg_base,sreg_base)
+  (res,creg_base,sreg_base)=root.gen_ipbus_xml(module_name,0,reg_base+creg_shift,reg_base)
   fo.write(res)
   fo.close()
 
