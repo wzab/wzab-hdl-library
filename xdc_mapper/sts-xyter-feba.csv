@@ -1,0 +1,14 @@
+sts_sout_pin_p,DIN_P
+sts_sout_pin_n,DIN_N
+sts_clk_pin_p,SERCLK_P
+sts_clk_pin_n,SERCLK_N
+sts_sin_pin_p[0],DATA0_P
+sts_sin_pin_n[0],DATA0_N
+sts_sin_pin_p[1],DATA1_P
+sts_sin_pin_n[1],DATA1_N
+sts_sin_pin_p[2],DATA2_P
+sts_sin_pin_n[2],DATA2_N
+sts_sin_pin_p[3],DATA3_P
+sts_sin_pin_n[3],DATA3_N
+sts_sin_pin_p[4],DATA4_P
+sts_sin_pin_n[4],DATA4_N
