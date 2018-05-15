@@ -6,7 +6,7 @@ or device with the FPGA.
 Please note, that the script is very simplified and there is no good error 
 detection.
 
-Written by Wojciech M. Zabolotny (wz...@ise.pw.edu.pl) 11.07.2017
+Written by Wojciech M. Zabolotny (wzab@ise.pw.edu.pl) 11.07.2017
 License: PUBLIC DOMAIN of CC0 (whatever is more convenient for you)
 """
 
@@ -69,6 +69,6 @@ for pin in pins:
         key=dicts[i][key]
         print("->"+key)
     #Now write the lines to the output XDC
-    fxdc.write("set_property %s [get_ports {%s}]\n" % (key, pin))
+    fxdc.write("set_property PACKAGE_PIN %s [get_ports {%s}]\n" % (key, pin))
     fxdc.write("set_property IOSTANDARD LVDS_25 [get_ports {%s}]\n" % pin)
 fxdc.close()  
