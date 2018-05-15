@@ -3,10 +3,14 @@ For each intermediate interface you need to create a mapping CSV file, where a s
 Then you create a translators' chain, where you can define the columns in the CSV rows and the translation function.
 The translation function takes care for slight modification of the pin names.
 In the attached example data you can define to which FMC connector is your chip connected. You modify it by uncommenting one of the following lines:
+
     #[2,lambda x: x.replace("LA2_","").replace("HB2_","")],
-(when it is in the second FMC connecxtor)
+
+(when it is in the second FMC connector)
+
     [2,lambda x: x.replace("LA1_","").replace("HB1_","")],
-(when it is in the first FMC connecxtor)
+
+(when it is in the first FMC connector)
 
 The tool itself is published as PUBLIC DOMAIN or under CC0 license.
 
