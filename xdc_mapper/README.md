@@ -14,4 +14,4 @@ The attached data are provided only to demonstrate the functionality (they are t
 
 The tools is very simple and has minimalistic error detection. To configure it you must manually modify the code. However, it appeared a convenient tool saving the time, and allowing me to avoid mistakes when preparing pinout XDC files.
 
-The tool was first published in the usenet alt.spurces group. You can find the post in the Google archive: https://groups.google.com/forum/#!topic/alt.sources/_8ScVn-ZweU
+The tool was first published in the usenet alt.sources group. You can find the post in the Google archive: https://groups.google.com/forum/#!topic/alt.sources/_8ScVn-ZweU
