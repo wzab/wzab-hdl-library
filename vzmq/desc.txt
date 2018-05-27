@@ -1,0 +1,45 @@
+Sometimes I need to run a VHDL simulation which communicates
+with the C or Python application exchanging data other
+than simple byte stream.
+The minimal solution should provide exchange of at least
+"packets" or "messages" of arbitrary length.
+The sources below implement "VZMQ" that allows you
+to send and receive such messages to/from the simulation
+running in GHDL using the ZeroMQ library (so you can
+communicate with application written in any language
+that supports ZMQ).
+My previous solution (directory ghdl_proc) provided 
+dedicated VHDL functions and worked via VHPI in GHDL.
+However, I needed a portable solution able to work both
+with GHDL and with Vivado XSIM.
+Unfortunately, XSIM does not support VHPI, and the only
+way to interface it with C code is via SystemVerilog
+and DPI.
+In XSIM t is not possible to interface SystemVerilog
+functions and tasks directly with VHDL code.
+Therefore, the new solution implements an IP block
+vzmq, that is implemented either in VHDL (for GHDL)
+or in SystemVerilog (for XSIM).
+That blocks offers signals for transmitted (snd_msg)
+and received (rcv_msg) messages and handshake lines:
+change of state on snd_stb triggers sending of the 
+message, and toggling the rcv_stb triggers reception
+of the message. Lines snd_ack and rcv_ack provide
+confirmation of proper reception or transmission.
+Lines snd_bytes transfer size of the transmitted 
+message. Lines rcv_bytes - the size of the received
+message.
+Directory "ghdl" contains implementation for the
+GHDL simulator (run runme.sh to check, how it works).
+Directory "dpi" contains implementation for XSIM.
+Run the "build.sh" script to compile sources and
+start simulation. When the simulation is started,
+in another console run "python zmqtest.py".
+
+The code is published as PUBLIC DOMAIN or under
+Creative Commons CC0 license (whichever better suits
+your needs).
+I do not give any warranty. You use it at your own
+risk.
+
+Wojciech M. Zabolotny (wzab01<at>gmail.com) 
