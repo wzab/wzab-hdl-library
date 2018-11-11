@@ -1,7 +1,7 @@
 -- Code used to implement the emulated bus
 -- according to method publicly disclosed by W.M.Zabolotny in 2007 
 -- Usenet alt.sources "Bus controller model for VHDL & Python cosimulation"
- 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -10,16 +10,16 @@ use work.wishbone_pkg.all;
 library work;
 
 entity sim_wb_ctrl is
-  
+
   generic (
-    rdpipename : string  := "rdpipe";
-    wrpipename : string  := "wrpipe"
+    rdpipename : string := "rdpipe";
+    wrpipename : string := "wrpipe"
     );
 
   port (
-    wb_m_out : out t_wishbone_master_out;
-    wb_m_in : in t_wishbone_master_in;
-    clk_sys_i : in std_logic
+    wb_m_out  : out t_wishbone_master_out;
+    wb_m_in   : in  t_wishbone_master_in;
+    clk_sys_i : in  std_logic
     );
 
 end sim_wb_ctrl;
@@ -27,22 +27,22 @@ end sim_wb_ctrl;
 architecture simul of sim_wb_ctrl is
 
   constant addrwidth, datawidth : integer := 32;
-  
+
 begin  -- simul
 
 
 
   process
 
-    file write_pipe  : text;
-    file read_pipe   : text;
-    variable code    : character;
-    variable db_line : line;
-    variable rd_line : line;
-    variable wr_line : line;
+    file write_pipe          : text;
+    file read_pipe           : text;
+    variable code            : character;
+    variable db_line         : line;
+    variable rd_line         : line;
+    variable wr_line         : line;
     variable sync_with_slope : boolean := false;
-    variable status : boolean := false;
-    
+    variable status          : boolean := false;
+
     procedure read_hex_stlv (
       variable fline : inout line;
       constant nbits :       integer;
@@ -136,10 +136,10 @@ begin  -- simul
       res          : inout line;
       constant vec :       std_logic_vector) is
       variable nibble  : integer;
-      variable pos : integer;
+      variable pos     : integer;
       constant hexdigs : string := "0123456789abcdef";
     begin  -- stlv2hex
-      nibble      := 1;
+      nibble       := 1;
       if vec'right <= vec'left then
         for i in vec'left downto vec'right loop
           -- calculate the nibbles
@@ -147,7 +147,7 @@ begin  -- simul
           if vec(i) = '1' then
             nibble := nibble + 2**(pos);
           end if;
-          if pos=0 then
+          if pos = 0 then
             write(res, hexdigs(nibble));
             nibble := 1;
           end if;
@@ -158,7 +158,7 @@ begin  -- simul
           if vec(i) = '1' then
             nibble := nibble + 2**(pos);
           end if;
-          if pos=0 then
+          if pos = 0 then
             write(res, hexdigs(nibble));
             nibble := 1;
           end if;
@@ -169,7 +169,7 @@ begin  -- simul
     procedure bus_read (
       variable address : in  std_logic_vector((addrwidth-1) downto 0);
       variable data    : out std_logic_vector((datawidth-1) downto 0);
-      variable status : out boolean
+      variable status  : out boolean
       ) is
     begin  -- ipbus_read
       if sync_with_slope = false then
@@ -177,31 +177,39 @@ begin  -- simul
         sync_with_slope := true;
       end if;
       wb_m_out.adr <= address;
-      wb_m_out.we <= '0';
+      wb_m_out.we  <= '0';
       wb_m_out.stb <= '1';
       wb_m_out.cyc <= '1';
-      lr1: loop 
+      lr1 : loop
         wait until rising_edge(clk_sys_i);
         if wb_m_in.ack = '1' then
-          data := wb_m_in.dat;
+          data   := wb_m_in.dat;
           status := true;
           exit lr1;
         end if;
         if wb_m_in.err = '1' then
-          data := (others => '0');
+          data   := (others => '0');
           status := false;
           exit lr1;
         end if;
       end loop;
       wb_m_out.stb <= '0';
       wb_m_out.cyc <= '0';
-      wait until rising_edge(clk_sys_i);
+      lr2 : loop
+        wait until rising_edge(clk_sys_i);
+        if (wb_m_in.ack = '0') and
+          (wb_m_in.err = '0')and
+          (wb_m_in.rty = '0')
+        then
+          exit lr2;
+        end if;
+      end loop;
     end bus_read;
-    
+
     procedure bus_write (
-      variable address : in std_logic_vector((addrwidth-1) downto 0);
-      variable data    : in std_logic_vector((datawidth-1) downto 0);
-      variable status : out boolean
+      variable address : in  std_logic_vector((addrwidth-1) downto 0);
+      variable data    : in  std_logic_vector((datawidth-1) downto 0);
+      variable status  : out boolean
       ) is
     begin
       --report "Started bus_write" severity note;
@@ -209,12 +217,12 @@ begin  -- simul
         wait until rising_edge(clk_sys_i);
         sync_with_slope := true;
       end if;
-      wb_m_out.adr     <= address;
-      wb_m_out.dat    <= data;
-      wb_m_out.we <= '1';
+      wb_m_out.adr <= address;
+      wb_m_out.dat <= data;
+      wb_m_out.we  <= '1';
       wb_m_out.stb <= '1';
       wb_m_out.cyc <= '1';
-      lw1: loop 
+      lw1 : loop
         wait until rising_edge(clk_sys_i);
         if wb_m_in.ack = '1' then
           status := true;
@@ -227,13 +235,22 @@ begin  -- simul
       end loop;
       wb_m_out.stb <= '0';
       wb_m_out.cyc <= '0';
-      wb_m_out.we <= '0';
+      wb_m_out.we  <= '0';
+      lw2 : loop
+        wait until rising_edge(clk_sys_i);
+        if (wb_m_in.ack = '0') and
+          (wb_m_in.err = '0')and
+          (wb_m_in.rty = '0')
+        then
+          exit lw2;
+        end if;
+      end loop;
     end bus_write;
 
     variable delay   : integer;
     variable data    : std_logic_vector(31 downto 0);
     variable address : std_logic_vector(31 downto 0);
-    
+
   begin  -- process
     file_open(write_pipe, wrpipename, read_mode);
     file_open(read_pipe, rdpipename, write_mode);
@@ -252,33 +269,33 @@ begin  -- simul
               report "Error: wrong separator in the write command" severity error;
           end if;
           read_hex_stlv(rd_line, datawidth, data);
-          bus_write(address, data,status);
+          bus_write(address, data, status);
           if status then
-            write(wr_line,string'("ACK"));
+            write(wr_line, string'("ACK"));
           else
-            write(wr_line,string'("ERR"));
+            write(wr_line, string'("ERR"));
           end if;
           writeline(read_pipe, wr_line);
-          -- If you are using VHDL-2008, you may uncomment
-          -- the flush command below, and run GHDL without
-          -- "--unbuffered" option
-          --flush(read_pipe);
+        -- If you are using VHDL-2008, you may uncomment
+        -- the flush command below, and run GHDL without
+        -- "--unbuffered" option
+        --flush(read_pipe);
         when 'R' =>
           read_hex_stlv(rd_line, addrwidth, address);
-          bus_read(address, data,status);
+          bus_read(address, data, status);
           if status then
             write_stlv_hex(wr_line, data);
           else
-            write(wr_line,string'("ERR"));
+            write(wr_line, string'("ERR"));
           end if;
           writeline(read_pipe, wr_line);
-          -- If you are using VHDL-2008, you may uncomment
-          -- the flush command below, and run GHDL without
-          -- "--unbuffered" option
-          --flush(read_pipe);
+        -- If you are using VHDL-2008, you may uncomment
+        -- the flush command below, and run GHDL without
+        -- "--unbuffered" option
+        --flush(read_pipe);
         when 'T' =>
-          read_hex_stlv(rd_line,32,data);
-          delay := to_integer(unsigned(data));
+          read_hex_stlv(rd_line, 32, data);
+          delay           := to_integer(unsigned(data));
           wait for delay * 1 ns;
           sync_with_slope := false;
         when others =>
@@ -288,6 +305,6 @@ begin  -- simul
     end loop;
     wait;
   end process;
-  
+
 
 end simul;
