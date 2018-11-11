@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.62 (w)1999-2014 BSI
+[*] Thu Feb  5 15:43:16 2015
+[*]
+[dumpfile] "/tmp/rrr/ipbus_test_top_tb.ghw"
+[dumpfile_mtime] "Thu Feb  5 15:42:41 2015"
+[dumpfile_size] 8180
+[savefile] "/tmp/rrr/ipbus_test_top_tb.sav"
+[timestart] 0
+[size] 1600 853
+[pos] -601 -250
+*-27.867605 1020000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ipbus_test_top_tb.
+[treeopen] top.ipbus_test_top_tb.dut.
+[treeopen] top.ipbus_test_top_tb.dut.ipb_master_in.
+[treeopen] top.ipbus_test_top_tb.dut.ipb_master_out.
+[sst_width] 210
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 243
+@28
+top.ipbus_test_top_tb.dut.ipb_master_in.ipb_err
+top.ipbus_test_top_tb.dut.ipb_master_in.ipb_ack
+top.ipbus_test_top_tb.dut.ipb_master_out.ipb_write
+top.ipbus_test_top_tb.dut.ipb_master_out.ipb_strobe
+@22
+#{top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[31:0]} top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[31] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[30] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[29] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[28] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[27] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[26] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[25] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[24] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[23] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[22] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[21] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[20] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[19] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[18] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[17] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[16] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[15] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[14] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[13] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[12] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[11] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[10] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[9] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[8] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[7] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[6] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[5] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[4] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[3] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[2] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[1] top.ipbus_test_top_tb.dut.ipb_master_in.ipb_rdata[0]
+#{top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[31:0]} top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[31] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[30] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[29] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[28] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[27] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[26] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[25] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[24] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[23] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[22] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[21] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[20] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[19] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[18] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[17] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[16] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[15] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[14] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[13] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[12] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[11] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[10] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[9] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[8] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[7] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[6] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[5] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[4] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[3] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[2] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[1] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_addr[0]
+#{top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[31:0]} top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[31] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[30] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[29] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[28] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[27] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[26] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[25] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[24] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[23] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[22] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[21] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[20] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[19] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[18] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[17] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[16] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[15] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[14] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[13] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[12] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[11] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[10] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[9] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[8] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[7] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[6] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[5] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[4] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[3] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[2] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[1] top.ipbus_test_top_tb.dut.ipb_master_out.ipb_wdata[0]
+@28
+top.ipbus_test_top_tb.ipb_clk
+[pattern_trace] 1
+[pattern_trace] 0

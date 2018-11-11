@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node>
+    <node id="IVAL1" address="0x00000012" mask="0x0000000f" permission="r" />
+    <node id="IVAL2" address="0x00000012" mask="0x00000ff0" permission="r" />
+    <node id="IVAL3" address="0x00000013" permission="r" />
+    <node id="OVAL1" address="0x00000010" mask="0x000000ff" permission="rw" />
+    <node id="OVAL2" address="0x00000010" mask="0x00000f00" permission="rw" />
+    <node id="OVAL3" address="0x00000011" permission="rw" />
+    <node id="BUGGY" address="0x00000000" permission="rw" />
+</node>

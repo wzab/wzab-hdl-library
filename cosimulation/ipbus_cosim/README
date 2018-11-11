@@ -1,0 +1,12 @@
+The ipbus_addr_decode.vhd file is created from the addr_table file
+using the script addr_dec.py, found in directory:
+ipbus_2_0_v1/firmware/ipbus_core/scripts/addr_dec
+after downloading the firmware sources with
+$svn co http://svn.cern.ch/guest/cactus/tags/ipbus_fw/ipbus_2_0_v1
+
+You'll also need the ipbus_addr_decode.vhd.tmpl from the same
+directory, and the bitstring.py file, which you can find here:
+https://code.google.com/p/python-bitstring/
+or at direct link: https://pypi.python.org/packages/source/b/bitstring/bitstring-3.1.3.zip#md5=1db5d54ee269f6b54d50c3eb257eea4b
+
+

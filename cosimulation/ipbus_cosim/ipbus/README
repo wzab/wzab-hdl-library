@@ -1,0 +1,16 @@
+In this directory you should place files:
+ipbus_ctrlreg_v.vhd  ipbus_fabric.vhd  ipbus_package.vhd  ipbus_reg_types.vhd
+from original IPbus firmware.
+
+You can get them as described in the 
+https://svnweb.cern.ch/trac/cactus/wiki/IPbusFirmware
+
+by downloading all firmware sources:
+$ svn co http://svn.cern.ch/guest/cactus/tags/ipbus_fw/ipbus_2_0_v1
+
+ipbus_fabric.vhd and ipbus_package.vhd you'll find in: 
+ipbus_2_0_v1/firmware/ipbus_core/hdl
+
+ipbus_ctrlreg_v.vhd and ipbus_reg_types.vhd you'll find in:
+ipbus_2_0_v1/firmware/slaves/hdl
+S
