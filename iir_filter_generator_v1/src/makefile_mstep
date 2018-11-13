@@ -14,8 +14,8 @@ all: ${ENTITY}.ghw
 reader:   ${ENTITY} ${ENTITY}.ghw
 	gtkwave ${ENTITY}.ghw {ENTITY}.sav
 ${ENTITY}: ${VHDLS}
-	ghdl -a --std=93c -Pip --ieee=${STD} ${VHDLS} 
-	ghdl -e --std=93c -Pip -fexplicit --ieee=${STD} ${ENTITY}
+	ghdl -a --std=08  --ieee=${STD} ${VHDLS} 
+	ghdl -e --std=08  -fexplicit --ieee=${STD} ${ENTITY}
 ${ENTITY}.ghw: ${ENTITY}
 	./${ENTITY} --wave=${ENTITY}.ghw --stop-time=10000ns
 #	./${ENTITY} --trace-processes --trace-signals --checks --wave=${ENTITY}.ghw --stop-time=10000ns

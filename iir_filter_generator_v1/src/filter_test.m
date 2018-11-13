@@ -5,6 +5,7 @@
 %
 % Generate the filter
 %[b,a]=cheby1(6,0.5,0.2);
+pkg load signal
 [b,a]=cheby1(7,0.5,0.2);
 % Set the number of integer and fractional bits
 ibits = 16;
@@ -35,8 +36,8 @@ s=[
 "use ieee.std_logic_1164.all;";
 "use ieee.numeric_std.all;";
 "use std.textio.all;";
-"library ieee_proposed;";
-"use ieee_proposed.fixed_pkg.all;";
+"library ieee;";
+"use ieee.fixed_pkg.all;";
 "use work.fixed_prec_pkg.all;";
 "use work.iir_fp_pkg.all;";
 "package filtdef is"];

@@ -4,8 +4,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.textio.all;
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+use ieee.fixed_pkg.all;
 use work.fixed_prec_pkg.all;            -- defines ibits and fbits
 
 package iir_fp_pkg is

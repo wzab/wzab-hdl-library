@@ -3,8 +3,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-library ieee_proposed;
-use ieee_proposed.fixed_pkg.all;
+library ieee;
+use ieee.fixed_pkg.all;
 use std.textio.all;
 library work;
 use work.fixed_prec_pkg.all;
