@@ -13,11 +13,12 @@ class glob:
 
 # Class "addressable object"
 class aobj(object):
-  def __init__(self,name,children=[]):
+  def __init__(self,name,children=[],add=True):
      global glb
      self.children=children
      self.name=name
-     glb.defs.append(self)
+     if add:
+       glb.defs.append(self)
   def a(self,child):
      self.children.append(child)
 
@@ -135,12 +136,21 @@ class aobj(object):
 
   def gen_ipbus_xml(self,node_name,indent,creg_base,sreg_base):
      res=""
-     if self.name=="SREG":
-        res +=indent*" "+"<node id=\""+node_name+"\" address=\""+hex(sreg_base)+"\" mode=\"r\"/>\n"
-        sreg_base+=1
-     elif self.name=="CREG":
-        res +=indent*" "+"<node id=\""+node_name+"\" address=\""+hex(creg_base)+"\" mode=\"rw\"/>\n"
-        creg_base+=1
+     if self.name=="SREG" or self.name=="CREG":
+       if self.name=="SREG":
+          res +=indent*" "+"<node id=\""+node_name+"\" address=\""+hex(sreg_base)+"\" permission=\"r\""
+          sreg_base+=1
+       if self.name=="CREG":
+          res +=indent*" "+"<node id=\""+node_name+"\" address=\""+hex(creg_base)+"\" permission=\"rw\""
+          creg_base+=1
+       if len(self.bitfields)==0:
+          res += "/>\n"
+       else:
+          #Generate the bitfields definitions
+          res += ">\n"
+          for bf in self.bitfields:
+            res += (indent+2)*" "+"<node id=\""+bf[0]+"\" mask=\"0x"+("%8.8X" % bf[1])+"\"/>\n"
+          res += indent*" "+"</node>\n"
      else:
         res += indent*" "+"<node id=\""+node_name+"\">\n"
         for cd in self.children:
@@ -239,10 +249,70 @@ def gen_ipbus_xml_table(module_name,root,reg_base):
   fo.write(res)
   fo.close()
 
+#Definition of the class supporting the registers with bitfields
+class reg_bf(aobj):
+  def make_bf(self,bf):
+    if len(bf)==2:
+      #This is the definition with bitmask
+      i = 0;
+      mask = bf[1];
+      #Search for right bit
+      while (i<31) and (mask & 1 == 0):
+         mask >>= 1
+         i+=1
+      if i>31:
+         raise Exception("Incorrect mask in "+str(bf))
+      right = i;
+      #Search for the left bit
+      while i<31:
+         mask >>= 1
+         if mask == 0:
+           break
+         if mask & 1 == 0:
+           raise Exception("Incorrect mask with hole in "+str(bf))
+         i+=1
+      if i>31:
+         raise Exception("Incorrect mask in "+str(bf))
+      left = i
+    elif len(bf)==3:
+      # This is the definition with left and right bits
+      left = bf[1]
+      right = bf[2]
+      if (left<right) or (left>31) or (right<0):
+         raise Exception("Incorrect mask in "+str(bf))
+    #Now we can reconstruct the mask, checking if the fields do not overlap
+    mask = 0
+    for i in range(right,left+1):
+      if (self.used & (1<<i)) != 0:
+         raise Exception("Overlapped fields "+str(bf))
+      mask |= 1<<i
+      self.used |= 1<<i
+    return (bf[0],mask)
+  def __init__(self,name,bitfields=[],add=False):
+    super(reg_bf,self).__init__(name,add=add)
+    self.used = 0
+    self.bitfields=[self.make_bf(bf) for bf in bitfields]
+
+class sreg_def_bf(reg_bf):
+  def __init__(self,*argv):
+    bitfields=[bf for bf in argv]
+    print(bitfields)
+    super(sreg_def_bf,self).__init__("SREG",bitfields)
+
+class creg_def_bf(reg_bf):
+  def __init__(self,*argv):
+    bitfields=[bf for bf in argv]
+    print(bitfields)
+    super(creg_def_bf,self).__init__("CREG",bitfields)
+
 glb = glob()
 glb.defs=[]
-sreg_def=aobj("SREG")
-creg_def=aobj("CREG")
+sreg_def=reg_bf("SREG",add=True)
+creg_def=reg_bf("CREG",add=True)
+
+#Class for addressable registers with bitfields
+
+
 c=const()
 
 
