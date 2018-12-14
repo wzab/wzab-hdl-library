@@ -1,3 +1,4 @@
+# adr_gen - automatic address generator #
 Last time I had to prepare a firmware for FPGA, that contained a complex hierarchy of blocks and subbblocks, containing registers and arrays of registers on different levels of hierarchy. Those registers were connected to simple block driven by IPbus ( https://github.com/ipbus/ipbus-firmware ) or AXI-Lite slave (e.g., generated with Tools/Create and Package New IP/Ctreate AXI4 Peripheral), that provides certain number of R/W - "Control" and RO - "Status" registers.
 Until the design was small, it was easy to allocate the register addresses by hand and to connect them with manually written HDL.
 However, as the design grew up, this task became more tiring and error prone.
