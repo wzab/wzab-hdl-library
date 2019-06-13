@@ -1,0 +1,21 @@
+I needed to read in FPGA the MAC adress from the Microchip 11AA02E48T-I/TT EEPROM.
+Unfortunately, I wasn't able to find any VHDL nor Verilog core supporting
+the UNI/O protocol used by that chip.
+Below are the sources of the minimalistic controller capable of performing basic
+read and write opertions in that EEPROM.
+Probably it may also be used with other chips using the UNI/O protocol.
+
+The design was based on the documentation from Microchip:
+http://ww1.microchip.com/downloads/en/devicedoc/22076d.pdf
+http://ww1.microchip.com/downloads/en/DeviceDoc/20002122D.pdf
+
+The code is published as PUBLIC DOMAIN or Creative Commond CC0 1.0 Universal license.
+You use it on your own risk, however it worked for me.
+Please also make sure that your use of UNI/O protocol does not violate any patents.
+
+With best regards,
+Wojciech M. Zabolotny
+wzab01<at>gmail.com or wzab<at>ise.pw.edu.pl
+
+
+
