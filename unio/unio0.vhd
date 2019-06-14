@@ -125,8 +125,8 @@ begin  -- rtl
             scio_oe <= '1';
             state   <= S_IDLE;
           when S_IDLE =>
-            s_busy <= '0';
-            scio_o <= '0';
+            s_busy  <= '0';
+            scio_o  <= '0';
             scio_oe <= '1';
             if cmd_wr = '1' then
               s_dout    <= (others => '0');
@@ -319,10 +319,10 @@ begin  -- rtl
             -- Here we should handle the transmission error
             s_dout(30)           <= '1';
             s_dout(27 downto 24) <= std_logic_vector(to_unsigned(byte_nr, 4));
-            s_busy <= '0';
-            scio <= '0';
-            scio_oe <= '1';
-            state <= S_IDLE;
+            s_busy               <= '0';
+            scio_o               <= '0';
+            scio_oe              <= '1';
+            state                <= S_IDLE;
           when others =>
             null;
         end case;
