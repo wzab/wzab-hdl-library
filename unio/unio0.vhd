@@ -50,6 +50,47 @@
 --                      a2) set cmd to 0x0074a003
 --                      the dout will contain 0x00FF1234 (ff is the not
 --                          overwritten contents at position 0x02)
+-- 
+-- FORTH WORDS FOR READING THE MAC ADDRESS FROM 11AA02E48 WITH J1B FORTH CPU:
+-- (e.g. the one used in https://github.com/wzab/TE0712_J1B_FORTH )
+-- $1030 constant SCIO 
+-- \ This word keeps reading UNI/O dout until its ready
+-- : scio_read_dout
+--   begin 
+--     SCIO io@ dup
+--     $80000000 and 0<>
+--   while
+--    drop
+--   repeat
+--   dup $40000000 and 0<> if
+--      $3 abort
+--   then
+-- ;
+--
+-- : scio_read_next_byte
+--   $32a006 SCIO io!
+--   scio_read_dout
+-- ;
+-- 
+-- : read_mac ( -- MAC_hs3bytes MAC_ls3bytes )
+--   $fa00 SCIO 1 + io! 
+--   $54a003 SCIO io! 
+--   scio_read_dout
+--   8 lshift
+--   scio_read_next_byte
+--   or 8 lshift
+--   scio_read_next_byte
+--   or
+--   \ Higher 3 bytes are on TOS
+--   scio_read_next_byte
+--   8 lshift
+--   scio_read_next_byte
+--   or 8 lshift
+--   scio_read_next_byte
+--   or
+--   \ Lower 3 bytes are on TOS
+-- ;
+
 -------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
