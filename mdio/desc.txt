@@ -1,0 +1,41 @@
+That directory provides the Forth implementation of bit-banging MDIO clause 22 controller.
+It has been initially published in https://groups.google.com/forum/?nomobile=true#!topic/alt.sources/g2mIDN12hR8
+The implementation is prepared for Swapforth, running on James Bowman's J1B CPU
+( https://github.com/jamesbowman/swapforth ) and is intended for use in different
+Ethernet-enabled, FPGA-based boards eg. https://github.com/wzab/AFCK_J1B_FORTH
+or https://github.com/wzab/TE0712_J1B_FORTH.
+
+The implementation in the J1B is done as follows:
+
+   reg [31:0] mdio_reg;   
+   reg       phy_mdio = mdio_reg[1] ? mdio_reg[0] : 1'bz;
+   wire       phy_mdc = mdio_reg[2];
+ 
+  [...]
+
+  assign io_din =
+    (io_addr_ == 16'h1000 ? {24'd0, uart0_data} : 32'd0) |
+    (io_addr_ == 16'h1020 ? {31'd0, phy_mdio} : 32'd0) |
+    (io_addr_ == 16'h2000 ? {28'd0, 1'b0, 1'b0, uart0_valid, 1'b1} : 32'd0);
+
+   // Writing to MDIO register
+   // ###### DUMP MEMORY FUNCTION #############################
+   always @(posedge clk) begin
+      if ( io_wr_ & ( io_addr_== 16'h1020 )) begin
+	 mdio_reg <= dout_;	 
+      end
+   end
+
+   always @(posedge clk) begin
+      if ( io_wr_ & ( io_addr_== 16'h1020 )) begin
+	 mdio_reg <= dout_;	 
+      end
+   end
+      
+The code was tested with multiple MDIO slaves implemented in Verilog.
+The code is published as PUBLIC DOMAIN or under Creative Commons CC0 1.0 Universal license.
+The code is published without any warranty. You use it fully on your own risk.
+However, it appeared to be useful for me.
+
+With best regards,
+Wojciech M. Zabolotny
