@@ -4,6 +4,7 @@ This code has been published first on 2nd of April 2011 as PUBLIC DOMAIN at usen
 with the subject "Behavioral but synthesizable implementation of IIR filters in VHDL".
 
 The post is available in the [google archive](https://groups.google.com/forum/#!msg/alt.sources/AYOs37DoPoE/7O6Mm4sDz8gJ)
+and in its [funet mirror](http://ftp.funet.fi/pub/archive/alt.sources/2600.gz).
 
 Attached sources implement the IIR filters in VHDL.
 The filters are described with behavioral code, but they are
