@@ -120,10 +120,13 @@ begin  -- architecture beh
       else
 	if tx_rdy_cnt >= 3 then
 	  tx_rdy_cnt := 0;
-	  tx_ready   <= '0';
 	else
 	  tx_rdy_cnt := tx_rdy_cnt + 1;
-	  tx_ready   <= '1';
+	end if;
+	if tx_rdy_cnt < 2 then
+	  tx_ready <= '0';
+	else
+	  tx_ready <= '1';
 	end if;
       end if;
     end if;

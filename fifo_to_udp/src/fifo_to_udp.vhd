@@ -208,9 +208,10 @@ begin  -- architecture rtl
 	      end if;
 	    end if;
 	  when st_data =>
-	    tx_data  <= fifo_din;
 	    tx_valid <= '1';
 	    if fifo_rd_s = '1' then
+	      tx_data  <= fifo_din;  	-- If fifo_rd is low, keep the previous
+					-- value
 	      if byte_cnt = 1 then
 		tx_last <= '1';
 	      end if;
