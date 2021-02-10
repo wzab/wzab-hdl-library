@@ -33,21 +33,23 @@ entity fifo_to_udp is
     count_width : integer := 15);
 
   port (
-    my_MAC	  : in	std_logic_vector(47 downto 0);
-    my_IP	  : in	std_logic_vector(31 downto 0);
-    rcv_MAC	  : in	std_logic_vector(47 downto 0);
-    rcv_IP	  : in	std_logic_vector(31 downto 0);
-    dport	  : in	std_logic_vector(15 downto 0);
+    my_MAC    : in  std_logic_vector(47 downto 0);
+    my_IP     : in  std_logic_vector(31 downto 0);
+    rcv_MAC   : in  std_logic_vector(47 downto 0);
+    rcv_IP    : in  std_logic_vector(31 downto 0);
+    dport     : in  std_logic_vector(15 downto 0);
     -- Control interface
-    send	  : in	std_logic;
-    busy	  : out std_logic;
+    send      : in  std_logic;
+    busy      : out std_logic;
+    max_bytes : in  std_logic_vector(count_width - 1 downto 0);
+
     -- System interface
     clk		  : in	std_logic;
     rst_p	  : in	std_logic;
     -- FIFO interface
-    fifo_av_words : in	std_logic_vector(count_width - 1 downto 0);
+    fifo_av_bytes : in	std_logic_vector(count_width - 1 downto 0);
     fifo_din	  : in	std_logic_vector(7 downto 0);
-    fifo_rd	  : out	std_logic;
+    fifo_rd	  : out std_logic;
     fifo_empty	  : in	std_logic;
     -- ETH sender interface
     tx_data	  : out std_logic_vector(7 downto 0);
@@ -61,11 +63,11 @@ end entity fifo_to_udp;
 architecture rtl of fifo_to_udp is
 
   type t_state is (st_idle, st_start, st_ethhdr, st_udphdr, st_data);
-  signal state	  : t_state := st_idle;
-  signal byte_cnt : unsigned(count_width-1 downto 0);
+  signal state	   : t_state := st_idle;
+  signal byte_cnt  : unsigned(count_width-1 downto 0);
   signal fifo_rd_s : std_logic;
-  signal tr_count : integer;
-  
+  signal tr_count  : integer;
+
   type t_bytes is array (natural range <>) of std_logic_vector(7 downto 0);
 
   -- The function eth_hdr returns the byte_nr-th byte of the eth_hdr
@@ -132,35 +134,35 @@ architecture rtl of fifo_to_udp is
     chksum := (others => '0');
     for i in 0 to 9 loop
       chkupd(15 downto 8) := unsigned(hdr(i*2));
-      chkupd(7 downto 0) := unsigned(hdr(i*2+1));
-      chksum := chksum + chkupd;
+      chkupd(7 downto 0)  := unsigned(hdr(i*2+1));
+      chksum		  := chksum + chkupd;
     end loop;  -- i
     -- Now add carry
-    chkupd := (others => '0');
-    chkupd(15 downto 0) := chksum(31 downto 16);
+    chkupd		 := (others => '0');
+    chkupd(15 downto 0)	 := chksum(31 downto 16);
     chksum(31 downto 16) := (others => '0');
-    chksum := chksum + chkupd;  	-- Add carry from previous additions
-    chksum  := chksum + chksum(31 downto 16);  -- Add possible carry from the
-					       -- last addition
-    chksum := chksum xor x"ffffffff";
-    hdr(10) := std_logic_vector(chksum(15 downto 8));
-    hdr(11) := std_logic_vector(chksum(7 downto 0));
+    chksum		 := chksum + chkupd;  -- Add carry from previous additions
+    chksum		 := chksum + chksum(31 downto 16);  -- Add possible carry from the
+							    -- last addition
+    chksum		 := chksum xor x"ffffffff";
+    hdr(10)		 := std_logic_vector(chksum(15 downto 8));
+    hdr(11)		 := std_logic_vector(chksum(7 downto 0));
     -- Create the UDP header
-    hdr(20) := x"00";
-    hdr(21) := x"00";			-- source port 0 (not used)
-    hdr(22) := dport(15 downto 8);
-    hdr(23) := dport(7 downto 0);
+    hdr(20)		 := x"00";
+    hdr(21)		 := x"00";	-- source port 0 (not used)
+    hdr(22)		 := dport(15 downto 8);
+    hdr(23)		 := dport(7 downto 0);
     -- Calculate length of the UDP part
-    len	    := 2*4 + to_integer(byte_cnt);
-    bv_len  := std_logic_vector(to_unsigned(len, 16));
-    hdr(24) := bv_len(15 downto 8);
-    hdr(25) := bv_len(7 downto 0);
-    hdr(26) := x"00";
-    hdr(27) := x"00";			-- CHKSUM (not used)
+    len			 := 2*4 + to_integer(byte_cnt);
+    bv_len		 := std_logic_vector(to_unsigned(len, 16));
+    hdr(24)		 := bv_len(15 downto 8);
+    hdr(25)		 := bv_len(7 downto 0);
+    hdr(26)		 := x"00";
+    hdr(27)		 := x"00";	-- CHKSUM (not used)
     return hdr(byte_nr);
   end function ip_udp_hdr;
 
-  
+
 begin  -- architecture rtl
 
   p1 : process (clk) is
@@ -169,20 +171,27 @@ begin  -- architecture rtl
       if rst_p = '1' then		-- synchronous reset (active high)
 	state	 <= st_idle;
 	tx_valid <= '0';
+	tx_last	 <= '0';
       else
+	tx_last	 <= '0';
+	tx_valid <= '0';
 	case state is
 	  when st_idle =>
 	    if send = '1' then
-	      state    <= st_ethhdr;
-	      byte_cnt <= unsigned(fifo_av_words);
+	      state <= st_ethhdr;
+	      if unsigned(max_bytes) < unsigned(fifo_av_bytes) then
+		byte_cnt <= unsigned(max_bytes);
+	      else
+		byte_cnt <= unsigned(fifo_av_bytes);
+	      end if;
 	      tx_data  <= eth_hdr(0);
 	      tx_valid <= '1';
 	      tr_count <= 1;
 	    end if;
 	  when st_ethhdr =>
+	    tx_valid <= '1';
 	    if tx_ready = '1' then
 	      tx_data  <= eth_hdr(tr_count);
-	      tx_valid <= '1';
 	      tr_count <= tr_count + 1;
 	      if tr_count = 13 then
 		tr_count <= 0;
@@ -190,17 +199,21 @@ begin  -- architecture rtl
 	      end if;
 	    end if;
 	  when st_udphdr =>
+	    tx_valid <= '1';
 	    if tx_ready = '1' then
 	      tx_data  <= ip_udp_hdr(byte_cnt, tr_count);
-	      tx_valid <= '1';
 	      tr_count <= tr_count + 1;
 	      if tr_count = 27 then
 		state <= st_data;
 	      end if;
 	    end if;
 	  when st_data =>
-	    tx_data <= fifo_din;
+	    tx_data  <= fifo_din;
+	    tx_valid <= '1';
 	    if fifo_rd_s = '1' then
+	      if byte_cnt = 1 then
+		tx_last <= '1';
+	      end if;
 	      if byte_cnt = 0 then
 		tx_valid <= '0';
 		busy	 <= '0';
@@ -218,8 +231,8 @@ begin  -- architecture rtl
   -- When we read from FIFO?
   -- when data_transfer is '1', tx_ready is '1' end fifo_empty is '0'
   fifo_rd_s <= '1' when ((state = st_data) and
-	     (tx_ready = '1') and
-	     (fifo_empty = '0')) else '0';
+			 (tx_ready = '1') and
+			 (fifo_empty = '0')) else '0';
   fifo_rd <= fifo_rd_s;
-  
+
 end architecture rtl;
