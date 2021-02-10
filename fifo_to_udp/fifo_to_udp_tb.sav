@@ -1,0 +1,36 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed Feb 10 01:37:03 2021
+[*]
+[dumpfile] "/home/wzab/tmp/wzab-hdl-library/fifo_to_udp/fifo_to_udp_tb.ghw"
+[dumpfile_mtime] "Wed Feb 10 01:35:32 2021"
+[dumpfile_size] 6101
+[savefile] "/home/wzab/tmp/wzab-hdl-library/fifo_to_udp/fifo_to_udp_tb.sav"
+[timestart] 0
+[size] 1753 1328
+[pos] 27 454
+*-29.624733 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.fifo_to_udp_tb.
+[treeopen] top.fifo_to_udp_tb.dut.
+[sst_width] 316
+[signals_width] 212
+[sst_expanded] 1
+[sst_vpaned_height] 391
+@22
+#{top.fifo_to_udp_tb.tx_data[7:0]} top.fifo_to_udp_tb.tx_data[7] top.fifo_to_udp_tb.tx_data[6] top.fifo_to_udp_tb.tx_data[5] top.fifo_to_udp_tb.tx_data[4] top.fifo_to_udp_tb.tx_data[3] top.fifo_to_udp_tb.tx_data[2] top.fifo_to_udp_tb.tx_data[1] top.fifo_to_udp_tb.tx_data[0]
+@28
+top.fifo_to_udp_tb.clk
+top.fifo_to_udp_tb.rst_p
+@420
+top.fifo_to_udp_tb.dut.state
+@22
+#{top.fifo_to_udp_tb.dut.byte_cnt[15:0]} top.fifo_to_udp_tb.dut.byte_cnt[15] top.fifo_to_udp_tb.dut.byte_cnt[14] top.fifo_to_udp_tb.dut.byte_cnt[13] top.fifo_to_udp_tb.dut.byte_cnt[12] top.fifo_to_udp_tb.dut.byte_cnt[11] top.fifo_to_udp_tb.dut.byte_cnt[10] top.fifo_to_udp_tb.dut.byte_cnt[9] top.fifo_to_udp_tb.dut.byte_cnt[8] top.fifo_to_udp_tb.dut.byte_cnt[7] top.fifo_to_udp_tb.dut.byte_cnt[6] top.fifo_to_udp_tb.dut.byte_cnt[5] top.fifo_to_udp_tb.dut.byte_cnt[4] top.fifo_to_udp_tb.dut.byte_cnt[3] top.fifo_to_udp_tb.dut.byte_cnt[2] top.fifo_to_udp_tb.dut.byte_cnt[1] top.fifo_to_udp_tb.dut.byte_cnt[0]
+@28
+top.fifo_to_udp_tb.dut.fifo_rd
+top.fifo_to_udp_tb.dut.fifo_empty
+top.fifo_to_udp_tb.dut.fifo_rd_s
+top.fifo_to_udp_tb.dut.tx_ready
+top.fifo_to_udp_tb.dut.fifo_empty
+[pattern_trace] 1
+[pattern_trace] 0
