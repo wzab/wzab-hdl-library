@@ -39,10 +39,11 @@ architecture beh of fifo_to_udp_tb is
   constant count_width : integer := 16;
 
   -- component ports
-  signal my_MAC	       : std_logic_vector(47 downto 0) := x"0a0b0c0d0e1d";
-  signal my_IP	       : std_logic_vector(31 downto 0) := x"1c4bac54";
-  signal rcv_MAC       : std_logic_vector(47 downto 0) := x"123456789abc";
-  signal rcv_IP	       : std_logic_vector(31 downto 0) := x"34657812";
+  signal my_MAC	       : std_logic_vector(47 downto 0) := x"d8cb321dabe5";
+  signal my_IP	       : std_logic_vector(31 downto 0) := x"ac130202";
+  signal rcv_MAC       : std_logic_vector(47 downto 0) := x"c04a2113b6e6";
+  signal rcv_IP	       : std_logic_vector(31 downto 0) := x"ac130101";
+
   signal dport	       : std_logic_vector(15 downto 0) := x"1234";
   signal send	       : std_logic := '0';
   signal busy	       : std_logic;
@@ -61,6 +62,8 @@ architecture beh of fifo_to_udp_tb is
 
   type bfile is file of character;
   file pkt_out : bfile open write_mode is "packet.bin";
+
+  signal test_dta : unsigned(7 downto 0) := (others => '0');
   
 begin  -- architecture beh
 
@@ -90,6 +93,22 @@ begin  -- architecture beh
   -- clock generation
   Clk <= not Clk after 10 ns;
 
+  -- simulate FIFO delivering consecutive bytes
+  f1: process (clk) is
+  begin  -- process f1
+    if clk'event and clk = '1' then  	-- rising clock edge
+      if rst_p = '1' then  		-- synchronous reset (active high)
+	test_dta <= (others => '0');
+      else
+	if fifo_rd = '1' then
+	  test_dta <= test_dta + 1;
+	end if;
+      end if;
+    end if;
+  end process f1;
+
+  fifo_din <= std_logic_vector(test_dta);
+  
   w1: process (clk) is
     variable pout : character;
   begin  -- process w1

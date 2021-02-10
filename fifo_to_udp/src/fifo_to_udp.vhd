@@ -78,11 +78,11 @@ architecture rtl of fifo_to_udp is
   begin	 -- function eth_hdr
     -- Copy the receiver MAC
     for i in 0 to 5 loop
-      hdr(i) := rcv_mac(i*8+7 downto i*8);
+      hdr(5-i) := rcv_mac(i*8+7 downto i*8);
     end loop;  -- i
     -- Copy the sender MAC
     for i in 0 to 5 loop
-      hdr(i+6) := my_mac(i*8+7 downto i*8);
+      hdr(11-i) := my_mac(i*8+7 downto i*8);
     end loop;  -- i
     -- Put the ether type
     hdr(12) := x"08";
@@ -113,19 +113,19 @@ architecture rtl of fifo_to_udp is
     bv_len  := std_logic_vector(to_unsigned(len, 16));
     hdr(2)  := bv_len(15 downto 8);
     hdr(3)  := bv_len(7 downto 0);
-    hdr(4)  := x"00";			-- Fragments
-    hdr(5)  := x"00";
+    hdr(4)  := x"11";			-- Fragments
+    hdr(5)  := x"22";
     hdr(6)  := x"00";
     hdr(7)  := x"00";
-    hdr(8)  := x"00";			-- TTL
+    hdr(8)  := x"10";			-- TTL
     hdr(9)  := x"11";			-- Protocol UDP=17
     hdr(10) := x"00";			-- CHKSUM MSB
     hdr(11) := x"00";			-- CHKSUM LSB
     for i in 0 to 3 loop
-      hdr(12+i) := my_ip(i*8+7 downto i*8);
+      hdr(15-i) := my_ip(i*8+7 downto i*8);
     end loop;  -- i
     for i in 0 to 3 loop
-      hdr(16+i) := rcv_ip(i*8+7 downto i*8);
+      hdr(19-i) := rcv_ip(i*8+7 downto i*8);
     end loop;  -- i
     -- End of IP header
     -- Calculate the checksum
@@ -136,7 +136,13 @@ architecture rtl of fifo_to_udp is
       chksum := chksum + chkupd;
     end loop;  -- i
     -- Now add carry
-    chksum  := chksum + chksum(31 downto 16);
+    chkupd := (others => '0');
+    chkupd(15 downto 0) := chksum(31 downto 16);
+    chksum(31 downto 16) := (others => '0');
+    chksum := chksum + chkupd;  	-- Add carry from previous additions
+    chksum  := chksum + chksum(31 downto 16);  -- Add possible carry from the
+					       -- last addition
+    chksum := chksum xor x"ffffffff";
     hdr(10) := std_logic_vector(chksum(15 downto 8));
     hdr(11) := std_logic_vector(chksum(7 downto 0));
     -- Create the UDP header
@@ -195,7 +201,7 @@ begin  -- architecture rtl
 	  when st_data =>
 	    tx_data <= fifo_din;
 	    if fifo_rd_s = '1' then
-	      if byte_cnt = 1 then
+	      if byte_cnt = 0 then
 		tx_valid <= '0';
 		busy	 <= '0';
 		state	 <= st_idle;
