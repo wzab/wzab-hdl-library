@@ -7,7 +7,7 @@
 -- Company    : Institute of Electronic Systems, Warsaw University of Technology
 -- SPDX-License-Identifier: BSD-3-Clause
 -- Created    : 2021-01-31
--- Last update: 2021-02-10
+-- Last update: 2021-02-13
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -177,6 +177,7 @@ begin  -- architecture rtl
 	tx_valid <= '0';
 	case state is
 	  when st_idle =>
+            tx_valid <= '0';
 	    if send = '1' then
 	      state <= st_ethhdr;
 	      if unsigned(max_bytes) < unsigned(fifo_av_bytes) then
@@ -214,9 +215,6 @@ begin  -- architecture rtl
 					-- value
 	      if byte_cnt = 1 then
 		tx_last <= '1';
-	      end if;
-	      if byte_cnt = 0 then
-		tx_valid <= '0';
 		busy	 <= '0';
 		state	 <= st_idle;
 	      else
