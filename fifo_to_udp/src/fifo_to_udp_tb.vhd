@@ -48,9 +48,9 @@ architecture beh of fifo_to_udp_tb is
   signal send	       : std_logic				    := '0';
   signal busy	       : std_logic;
   signal rst_p	       : std_logic				    := '1';
-  signal fifo_av_bytes : std_logic_vector(count_width - 1 downto 0) := x"0010";
-  signal max_bytes     : std_logic_vector(count_width - 1 downto 0) := x"0100";
-  signal fifo_din      : std_logic_vector(7 downto 0)		    := x"ab";
+  signal fifo_av_words : std_logic_vector(count_width - 1 downto 0) := x"0010";
+  signal max_words     : std_logic_vector(count_width - 1 downto 0) := x"0100";
+  signal fifo_din      : std_logic_vector(31 downto 0)		    := x"abcd0123";
   signal fifo_rd       : std_logic;
   signal fifo_empty    : std_logic				    := '0';
   signal tx_data       : std_logic_vector(7 downto 0);
@@ -64,7 +64,7 @@ architecture beh of fifo_to_udp_tb is
   type bfile is file of character;
   file pkt_out : bfile open write_mode is "packet.bin";
 
-  signal test_dta : unsigned(7 downto 0) := (others => '0');
+  signal test_dta : unsigned(31 downto 0) := (others => '0');
 
 begin  -- architecture beh
 
@@ -77,13 +77,13 @@ begin  -- architecture beh
       my_IP	    => my_IP,
       rcv_MAC	    => rcv_MAC,
       rcv_IP	    => rcv_IP,
-      max_bytes	    => max_bytes,
+      max_words	    => max_words,
       dport	    => dport,
       send	    => send,
       busy	    => busy,
       clk	    => clk,
       rst_p	    => rst_p,
-      fifo_av_bytes => fifo_av_bytes,
+      fifo_av_words => fifo_av_words,
       fifo_din	    => fifo_din,
       fifo_rd	    => fifo_rd,
       fifo_empty    => fifo_empty,

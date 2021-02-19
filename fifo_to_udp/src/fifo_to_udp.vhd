@@ -41,14 +41,14 @@ entity fifo_to_udp is
     -- Control interface
     send      : in  std_logic;
     busy      : out std_logic;
-    max_bytes : in  std_logic_vector(count_width - 1 downto 0);
+    max_words : in  std_logic_vector(count_width - 1 downto 0);
 
     -- System interface
     clk		  : in	std_logic;
     rst_p	  : in	std_logic;
     -- FIFO interface
-    fifo_av_bytes : in	std_logic_vector(count_width - 1 downto 0);
-    fifo_din	  : in	std_logic_vector(7 downto 0);
+    fifo_av_words : in	std_logic_vector(count_width - 1 downto 0);
+    fifo_din	  : in	std_logic_vector(31 downto 0);
     fifo_rd	  : out std_logic;
     fifo_empty	  : in	std_logic;
     -- ETH sender interface
@@ -64,7 +64,7 @@ architecture rtl of fifo_to_udp is
 
   type t_state is (st_idle, st_start, st_ethhdr, st_udphdr, st_counter1, st_counter2, st_data);
   signal state	   : t_state		   := st_idle;
-  signal byte_cnt  : unsigned(count_width-1 downto 0);
+  signal word_cnt  : unsigned(count_width-1 downto 0);
   signal fifo_rd_s : std_logic;
   signal tr_count  : integer;
   signal pkt_num   : unsigned(15 downto 0) := (others => '0');
@@ -100,7 +100,7 @@ architecture rtl of fifo_to_udp is
   -- we don't calculate the checksum (optional in IPv4).
   -- We rely on Ethernet frame chksum.
   impure function ip_udp_hdr (
-    constant byte_cnt : in unsigned(count_width-1 downto 0);
+    constant word_cnt : in unsigned(count_width-1 downto 0);
     constant byte_nr  : in integer)
     return std_logic_vector is
     variable hdr    : t_bytes(0 to 27);
@@ -112,7 +112,7 @@ architecture rtl of fifo_to_udp is
     hdr(0)  := x"45";
     hdr(1)  := x"00";
     -- Put the datagram length
-    len	    := 5*4 + 2*4 + to_integer(byte_cnt);
+    len	    := 5*4 + 2*4 + 4*to_integer(word_cnt);
     bv_len  := std_logic_vector(to_unsigned(len, 16));
     hdr(2)  := bv_len(15 downto 8);
     hdr(3)  := bv_len(7 downto 0);
@@ -154,7 +154,7 @@ architecture rtl of fifo_to_udp is
     hdr(22)		 := dport(15 downto 8);
     hdr(23)		 := dport(7 downto 0);
     -- Calculate length of the UDP part
-    len			 := 2*4 + to_integer(byte_cnt);
+    len			 := 2*4 + 4*to_integer(word_cnt);
     bv_len		 := std_logic_vector(to_unsigned(len, 16));
     hdr(24)		 := bv_len(15 downto 8);
     hdr(25)		 := bv_len(7 downto 0);
@@ -183,10 +183,10 @@ begin  -- architecture rtl
 	    if send = '1' then
 	      busy <= '1';
 	      state <= st_ethhdr;
-	      if unsigned(max_bytes) < unsigned(fifo_av_bytes) then
-		byte_cnt <= unsigned(max_bytes);
+	      if unsigned(max_words) < unsigned(fifo_av_words) then
+		word_cnt <= unsigned(max_words);
 	      else
-		byte_cnt <= unsigned(fifo_av_bytes);
+		word_cnt <= unsigned(fifo_av_words);
 	      end if;
 	      tx_data  <= eth_hdr(0);
 	      tx_valid <= '1';
@@ -205,7 +205,7 @@ begin  -- architecture rtl
 	  when st_udphdr =>
 	    tx_valid <= '1';
 	    if tx_ready = '1' then
-	      tx_data  <= ip_udp_hdr(byte_cnt, tr_count);
+	      tx_data  <= ip_udp_hdr(word_cnt, tr_count);
 	      tr_count <= tr_count + 1;
 	      if tr_count = 27 then
 		state <= st_counter1;
@@ -222,19 +222,25 @@ begin  -- architecture rtl
 	    if tx_ready = '1' then
 	      tx_data <= std_logic_vector(pkt_num(7 downto 0));
 	      pkt_num <= pkt_num + 1;
+	      tr_count <= 3;
 	      state   <= st_data;
 	    end if;
 	  when st_data =>
 	    tx_valid <= '1';
-	    if fifo_rd_s = '1' then
-	      tx_data <= fifo_din;	-- If fifo_rd is low, keep the previous
-					-- value
-	      if byte_cnt = 1 then
-		tx_last <= '1';
-		busy	<= '0';
-		state	<= st_idle;
+	    -- If tx_ready is low, keep the previous value
+	    if tx_ready = '1' then
+	      tx_data <= fifo_din(8*tr_count+7 downto 8*tr_count);
+	      if tr_count = 0 then
+		if word_cnt = 1 then
+		  tx_last <= '1';
+		  busy	<= '0';
+		  state	<= st_idle;
+		else
+		  word_cnt <= word_cnt - 1;
+		  tr_count <= 3;
+		end if;		
 	      else
-		byte_cnt <= byte_cnt - 1;
+		tr_count <= tr_count - 1;
 	      end if;
 	    end if;
 	  when others => null;
@@ -244,9 +250,10 @@ begin  -- architecture rtl
   end process p1;
 
   -- When we read from FIFO?
-  -- when data_transfer is '1', tx_ready is '1' end fifo_empty is '0'
+  -- when data_transfer is '1', tx_ready is '1', tr_count is 3 and fifo_empty is '0'
   fifo_rd_s <= '1' when ((state = st_data) and
 			 (tx_ready = '1') and
+			 (tr_count = 0) and
 			 (fifo_empty = '0')) else '0';
   fifo_rd <= fifo_rd_s;
 
