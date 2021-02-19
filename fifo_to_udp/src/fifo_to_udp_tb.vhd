@@ -6,7 +6,7 @@
 -- Author     : Wojciech Zabołotny  <wzab@wzab>
 -- Company    : 
 -- Created    : 2021-02-10
--- Last update: 2021-02-10
+-- Last update: 2021-02-19
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -151,6 +151,12 @@ begin  -- architecture beh
     wait until Clk = '1';
     wait for 15 ns;
     rst_p <= '0';
+    wait until rising_edge(Clk);
+    send  <= '1';
+    wait until rising_edge(Clk);
+    send  <= '0';
+    wait until busy = '0';
+    wait for 150 ns;
     wait until rising_edge(Clk);
     send  <= '1';
     wait until rising_edge(Clk);

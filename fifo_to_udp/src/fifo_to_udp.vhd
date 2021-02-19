@@ -7,7 +7,7 @@
 -- Company    : Institute of Electronic Systems, Warsaw University of Technology
 -- SPDX-License-Identifier: BSD-3-Clause
 -- Created    : 2021-01-31
--- Last update: 2021-02-13
+-- Last update: 2021-02-19
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -62,11 +62,12 @@ end entity fifo_to_udp;
 
 architecture rtl of fifo_to_udp is
 
-  type t_state is (st_idle, st_start, st_ethhdr, st_udphdr, st_data);
-  signal state	   : t_state := st_idle;
+  type t_state is (st_idle, st_start, st_ethhdr, st_udphdr, st_counter1, st_counter2, st_data);
+  signal state	   : t_state		   := st_idle;
   signal byte_cnt  : unsigned(count_width-1 downto 0);
   signal fifo_rd_s : std_logic;
   signal tr_count  : integer;
+  signal pkt_num   : unsigned(15 downto 0) := (others => '0');
 
   type t_bytes is array (natural range <>) of std_logic_vector(7 downto 0);
 
@@ -172,13 +173,15 @@ begin  -- architecture rtl
 	state	 <= st_idle;
 	tx_valid <= '0';
 	tx_last	 <= '0';
+	busy	 <= '0';
       else
 	tx_last	 <= '0';
 	tx_valid <= '0';
 	case state is
 	  when st_idle =>
-            tx_valid <= '0';
+	    tx_valid <= '0';
 	    if send = '1' then
+	      busy <= '1';
 	      state <= st_ethhdr;
 	      if unsigned(max_bytes) < unsigned(fifo_av_bytes) then
 		byte_cnt <= unsigned(max_bytes);
@@ -205,18 +208,31 @@ begin  -- architecture rtl
 	      tx_data  <= ip_udp_hdr(byte_cnt, tr_count);
 	      tr_count <= tr_count + 1;
 	      if tr_count = 27 then
-		state <= st_data;
+		state <= st_counter1;
 	      end if;
+	    end if;
+	  when st_counter1 =>
+	    tx_valid <= '1';
+	    if tx_ready = '1' then
+	      tx_data <= std_logic_vector(pkt_num(15 downto 8));
+	      state   <= st_counter2;
+	    end if;
+	  when st_counter2 =>
+	    tx_valid <= '1';
+	    if tx_ready = '1' then
+	      tx_data <= std_logic_vector(pkt_num(7 downto 0));
+	      pkt_num <= pkt_num + 1;
+	      state   <= st_data;
 	    end if;
 	  when st_data =>
 	    tx_valid <= '1';
 	    if fifo_rd_s = '1' then
-	      tx_data  <= fifo_din;  	-- If fifo_rd is low, keep the previous
+	      tx_data <= fifo_din;	-- If fifo_rd is low, keep the previous
 					-- value
 	      if byte_cnt = 1 then
 		tx_last <= '1';
-		busy	 <= '0';
-		state	 <= st_idle;
+		busy	<= '0';
+		state	<= st_idle;
 	      else
 		byte_cnt <= byte_cnt - 1;
 	      end if;

@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Wed Feb 10 13:11:31 2021
+[*] Fri Feb 19 12:22:33 2021
 [*]
 [dumpfile] "/home/wzab/tmp/wzab-hdl-library/fifo_to_udp/fifo_to_udp_tb.ghw"
-[dumpfile_mtime] "Wed Feb 10 13:07:54 2021"
-[dumpfile_size] 6845
+[dumpfile_mtime] "Fri Feb 19 12:20:11 2021"
+[dumpfile_size] 7628
 [savefile] "/home/wzab/tmp/wzab-hdl-library/fifo_to_udp/fifo_to_udp_tb.sav"
-[timestart] 590800000
-[size] 2553 1356
+[timestart] 0
+[size] 1600 817
 [pos] 931 476
-*-26.910397 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.910397 2560000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.fifo_to_udp_tb.
 [treeopen] top.fifo_to_udp_tb.dut.
@@ -34,5 +34,9 @@ top.fifo_to_udp_tb.dut.tx_ready
 top.fifo_to_udp_tb.dut.fifo_empty
 @22
 #{top.fifo_to_udp_tb.dut.fifo_din[7:0]} top.fifo_to_udp_tb.dut.fifo_din[7] top.fifo_to_udp_tb.dut.fifo_din[6] top.fifo_to_udp_tb.dut.fifo_din[5] top.fifo_to_udp_tb.dut.fifo_din[4] top.fifo_to_udp_tb.dut.fifo_din[3] top.fifo_to_udp_tb.dut.fifo_din[2] top.fifo_to_udp_tb.dut.fifo_din[1] top.fifo_to_udp_tb.dut.fifo_din[0]
+@29
+top.fifo_to_udp_tb.send
+@28
+top.fifo_to_udp_tb.busy
 [pattern_trace] 1
 [pattern_trace] 0
