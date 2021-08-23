@@ -135,9 +135,9 @@ Connection of signals in the VHDL code may be done as follows:
 	         stat_reg(tad_addr.ab(an).a_status)<=s_a_stat(an).a_status;
 	         s_a_ctrl(an)<=ctrl_reg(tad_addr.ab(an).a_control);
 	         for spin in 0 to N_OF_SPI_SLAVES loop
-	            s_a_ctrl(an).spi(spin).spi_config <= ctrl_reg(tad_addr.ab(an).spi(spin).spi_config;
+	            s_a_ctrl(an).spi(spin).spi_config <= ctrl_reg(tad_addr.ab(an).spi(spin).spi_config);
 	            stat_reg(tad_addr.ab(an).spi(spin).spi_status) <= s_a_stat(an).spi(spin).spi_status;
-	            s_a_ctrl(an).spi(spin).spi_command <= ctrl_reg(tad_addr.ab(an).spi(spin).spi_command;
+	            s_a_ctrl(an).spi(spin).spi_command <= ctrl_reg(tad_addr.ab(an).spi(spin).spi_command);
 	         end loop; -- spin
 	         -- Similar loop for I2C slaves
 	      end loop;  -- an
@@ -147,7 +147,7 @@ Connection of signals in the VHDL code may be done as follows:
 The presented approach allows to maintain addresses allocation during the long term development of the design.
 I'll appreciate any improvements, suggestions and corrections.
 I publish that code as Public Domain or Creative Commons CC0 license, whatever better suits your needs.
-I hope that it will be useful or inspiring for somebode, but I do not provide warranty of any kind.
+I hope that it will be useful or inspiring for somebody, but I do not provide warranty of any kind.
 
 With best regards,
 Wojtek
