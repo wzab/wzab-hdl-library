@@ -1,0 +1,5 @@
+vhdl work genlfsr_pkg.vhd
+vhdl work genlfsr_top.vhd
+vhdl work genlfsr.vhd
+xci work ip/clk_main.xci
+xdc target.xdc
