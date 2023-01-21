@@ -48,7 +48,7 @@ class field:
     par_rec.nof_bits = self.v2+1
  
 if len(sys.argv) != 2:
-   print """
+   print ("""
 The rec_to_pkg scripts creates VHDL package for conversion
 between the VHDL records containing "signed", "unsigned",
 "std_logic_vector" and "std_logic" fields and std_logic_vectors.
@@ -73,7 +73,7 @@ field_name,rec,previously_defined_record
 end
 
 The generated package is written to the package_name.vhd file
-"""
+""")
    exit(0)
 fin=open(sys.argv[1])
 #Read the full description of the type
@@ -94,7 +94,7 @@ pkg_name=l[1]
 #Now we define the record types
 while len(type_desc)>0:
   td=type_desc.pop(0)
-  print td
+  print(td)
   #The first line in the section should contain the record name
   l=td.split(" ")
   if l[0] != "record":
@@ -108,7 +108,7 @@ while len(type_desc)>0:
   #Find the field definitions
   while len(type_desc)>0:
     l=type_desc.pop(0)
-    print l
+    print(l)
     if l=="end":
        end_found=True
        break
