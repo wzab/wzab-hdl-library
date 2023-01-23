@@ -6,7 +6,7 @@
 -- Author     : Wojciech M. Zabolotny wzab<at>ise.pw.edu.pl
 -- Company    : 
 -- Created    : 2013-11-30
--- Last update: 2015-02-04
+-- Last update: 2023-01-23
 -- Platform   : 
 -- Standard   : VHDL'93
 -- License    : PUBLIC DOMAIN CODE
@@ -27,7 +27,7 @@ use std.textio.all;
 
 package wz_random_pkg is
 
-  function random_byte
+  impure function random_byte
     return unsigned;
 
 end package wz_random_pkg;
@@ -37,7 +37,7 @@ package body wz_random_pkg is
   type T_CHAR_FILE is file of character;
   file urandom_file : T_CHAR_FILE open read_mode is "/dev/urandom";
 
-  function random_byte
+  impure function random_byte
     return unsigned is
     variable res      : unsigned(7 downto 0);
     variable rnd_char : character;
