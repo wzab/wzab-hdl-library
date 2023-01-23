@@ -1,0 +1,18 @@
+These sources implement very simple function for VHDL simulations
+on Linux, which returns random bytes from /dev/urandom
+as 8-bit unsigned bit vectors.
+You can easily modify it to return other random values with
+uniform distribution.
+The code is PUBLIC DOMAIN.
+
+In this version I've added "impure" to random_byte function
+declaration. Otherwise some VHDL simulators complained
+about access to the external file. 
+
+The sources were first published on alt.sources usenet group at 4.02.2015
+https://groups.google.com/g/alt.sources/c/d01Kb7_HjKk
+
+Archive-name: wz-random
+Version: 1.0 and 1.1
+Submitted-by: wzab@ise.pw.edu.pl (Wojciech M. Zabolotny)
+
