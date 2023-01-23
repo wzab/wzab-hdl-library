@@ -30,6 +30,9 @@ package wz_random_pkg is
   impure function random_byte
     return unsigned;
 
+  impure function random_unsigned(len : integer)
+    return unsigned;
+
 end package wz_random_pkg;
 
 package body wz_random_pkg is
@@ -46,5 +49,26 @@ package body wz_random_pkg is
     res := to_unsigned(character'pos(rnd_char), 8);
     return res;
   end function random_byte;
+
+  impure function random_unsigned(len : integer)
+    return unsigned is
+    variable res  : unsigned((len-1) downto 0);
+    variable code : unsigned(7 downto 0);
+    variable pos  : integer;
+    variable lim  : integer;
+  begin  -- function random_byte
+    pos := 0;
+    res := (others => '0');
+    while pos < len loop
+      code := random_byte;
+      lim  := len-pos;
+      if lim > 8 then
+        lim := 8;
+      end if;
+      res((pos+lim-1) downto pos) := code(lim-1 downto 0);
+      pos                         := pos+8;
+    end loop;
+    return res;
+  end function random_unsigned;
 
 end package body wz_random_pkg;

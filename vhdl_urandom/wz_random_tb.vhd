@@ -6,7 +6,7 @@
 -- Author     : Wojciech M. Zabolotny wzab<at>ise.pw.edu.pl
 -- Company    : 
 -- Created    : 2013-11-30
--- Last update: 2015-02-04
+-- Last update: 2023-01-23
 -- Platform   : 
 -- Standard   : VHDL'93
 -- License    : PUBLIC DOMAIN CODE
@@ -38,7 +38,8 @@ architecture test1 of wz_random_tb is
 
   -- clock
   signal Clk : std_logic := '1';
-
+  constant DLEN : integer := 15;
+  
 begin  -- test1
 
   -- clock generation
@@ -46,12 +47,12 @@ begin  -- test1
 
   -- waveform generation
   WaveGen_Proc : process
-    variable data : unsigned(7 downto 0);
+    variable data : unsigned(DLEN-1 downto 0);
   begin
     for i in 0 to 50 loop
       wait until Clk = '0';
       wait until Clk = '1';
-      data := random_byte;
+      data := random_unsigned(DLEN);
       report integer'image(to_integer(data)) severity note;
     end loop;
     wait;
