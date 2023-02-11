@@ -1,5 +1,5 @@
 This is text part of the original message sent to alt sources.
-It is archived at http://ftp.fi.netbsd.org/pub/misc/archive/alt.sources/1401.gz
+It is archived at https://ftp.fi.netbsd.org/pub/misc/archive/alt.sources/1401.gz
 
 From: Wojciech Zabolotny <wzab@ise.pw.edu.pl>
 Newsgroups: alt.sources
