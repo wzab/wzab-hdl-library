@@ -1,0 +1,8 @@
+This is a generic, parametrized implementation of the pseudorandom sequence
+generator, based on linear feedback shift register, written in VHDL.
+This is a behavioral code, however it also gives quite nice results in
+synthesis.
+The code is published as public domain, in the hope, that it may be useful
+for someone...
+The first version of the code was published on 20.02.2007 on the usenet alt.sources group.
+See https://groups.google.com/g/alt.sources/c/Xyt2HSLcsDI 
