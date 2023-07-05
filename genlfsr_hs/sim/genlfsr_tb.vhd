@@ -6,7 +6,7 @@
 -- Author     : Wojciech Zabołotny  <wzab@WZabHP.nasz.dom>
 -- Company    : 
 -- Created    : 2021-10-22
--- Last update: 2021-10-22
+-- Last update: 2023-07-05
 -- Platform   : 
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -35,31 +35,63 @@ architecture test of genlfsr_tb is
 
   -- component generics
   constant width  : integer     := 16;
-  constant length : integer     := 17;
-  constant taps   : T_LFSR_TAPS := (17, 14);
+  constant length1 : integer     := 167;
+  constant taps1   : T_LFSR_TAPS := (167, 161);
+  constant length2 : integer     := 125;
+  constant taps2   : T_LFSR_TAPS := (125,124,18,17);
 
   -- component ports
   signal rst_n : std_logic := '0';
   signal ena   : std_logic := '0';
   signal dout  : std_logic_vector(width-1 downto 0);
-
+  signal dout_x1   : std_logic_vector(width-1 downto 0);
+  signal dout_x2   : std_logic_vector(width-1 downto 0);
+ 
   -- clock
   signal Clk : std_logic := '1';
 
+    -- Bit reversal based on Jonathan Bromley post
+  -- https://groups.google.com/g/comp.lang.vhdl/c/eBZQXrw2Ngk/m/4H7oL8hdHMcJ
+  function rev (
+    constant x : std_logic_vector)
+    return std_logic_vector is
+    variable res : std_logic_vector(x'range);
+    alias xrev : std_logic_vector(x'reverse_range) is x;    
+  begin  -- function rev
+    for i in xrev'range loop
+      res(i) := xrev(i);
+    end loop;  -- i
+    return res;
+  end function rev;
+ 
 begin  -- architecture test
 
   -- component instantiation
-  DUT: entity work.genlfsr
+  DUT1: entity work.genlfsr
     generic map (
       width  => width,
-      length => length,
-      taps   => taps)
+      length => length1,
+      taps   => taps1)
     port map (
       rst_n => rst_n,
       ena   => ena,
       clk   => Clk,
-      dout  => dout);
+      dout  => dout_x1);
 
+    -- component instantiation
+  DUT2: entity work.genlfsr
+    generic map (
+      width  => width,
+      length => length2,
+      taps   => taps2)
+    port map (
+      rst_n => rst_n,
+      ena   => ena,
+      clk   => Clk,
+      dout  => dout_x2);
+
+  dout <= dout_x1 xor rev(dout_x2);
+  
   -- clock generation
   Clk <= not Clk after 10 ns;
 

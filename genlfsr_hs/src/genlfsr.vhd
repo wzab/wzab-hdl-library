@@ -36,7 +36,7 @@ begin  -- beh
     elsif clk'event and clk = '1' then  -- rising clock edge
       if ena = '1' then
         vreg := reg;
-        for i in 1 to width loop
+        --for i in 1 to width loop
           fb := '0';
           for j in taps'range loop
             if fb = vreg(taps(j)-1) then
@@ -49,7 +49,7 @@ begin  -- beh
             vreg(k) := vreg(k-1);
           end loop;  -- k
           vreg(0) := fb;
-        end loop;  -- i
+        --end loop;  -- i
         reg <= vreg;
       end if;
     end if;

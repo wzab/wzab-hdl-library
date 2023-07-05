@@ -1,24 +1,44 @@
 [*]
-[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Oct 22 10:53:28 2021
+[*] GTKWave Analyzer v3.3.115 (w)1999-2023 BSI
+[*] Wed Jul  5 11:13:39 2023
 [*]
-[dumpfile] "/home/wzab/genlfsr/genlfsr_tb.ghw"
-[dumpfile_mtime] "Fri Oct 22 10:47:50 2021"
-[dumpfile_size] 1900639
-[savefile] "/home/wzab/genlfsr/genlfsr.sav"
-[timestart] 0
-[size] 1000 600
-[pos] -1 -1
-*-27.196381 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[dumpfile] "/tmp/hhhh/bbb/sim/genlfsr_tb.ghw"
+[dumpfile_mtime] "Wed Jul  5 11:10:54 2023"
+[dumpfile_size] 5200303
+[savefile] "/tmp/hhhh/bbb/sim/genlfsr.sav"
+[timestart] 442200000
+[size] 1920 976
+[pos] -27 -58
+*-25.196381 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.genlfsr_tb.
 [treeopen] top.genlfsr_tb.dut.
-[sst_width] 212
-[signals_width] 110
+[sst_width] 238
+[signals_width] 120
 [sst_expanded] 1
-[sst_vpaned_height] 151
-@22
+[sst_vpaned_height] 277
+@800023
 #{top.genlfsr_tb.dout[15:0]} top.genlfsr_tb.dout[15] top.genlfsr_tb.dout[14] top.genlfsr_tb.dout[13] top.genlfsr_tb.dout[12] top.genlfsr_tb.dout[11] top.genlfsr_tb.dout[10] top.genlfsr_tb.dout[9] top.genlfsr_tb.dout[8] top.genlfsr_tb.dout[7] top.genlfsr_tb.dout[6] top.genlfsr_tb.dout[5] top.genlfsr_tb.dout[4] top.genlfsr_tb.dout[3] top.genlfsr_tb.dout[2] top.genlfsr_tb.dout[1] top.genlfsr_tb.dout[0]
+@29
+top.genlfsr_tb.dout[15]
+top.genlfsr_tb.dout[14]
+top.genlfsr_tb.dout[13]
+top.genlfsr_tb.dout[12]
+top.genlfsr_tb.dout[11]
+top.genlfsr_tb.dout[10]
+top.genlfsr_tb.dout[9]
+top.genlfsr_tb.dout[8]
+top.genlfsr_tb.dout[7]
+top.genlfsr_tb.dout[6]
+top.genlfsr_tb.dout[5]
+top.genlfsr_tb.dout[4]
+top.genlfsr_tb.dout[3]
+top.genlfsr_tb.dout[2]
+top.genlfsr_tb.dout[1]
+top.genlfsr_tb.dout[0]
+@1001201
+-group_end
+@22
 #{top.genlfsr_tb.dut.dout[15:0]} top.genlfsr_tb.dut.dout[15] top.genlfsr_tb.dut.dout[14] top.genlfsr_tb.dut.dout[13] top.genlfsr_tb.dut.dout[12] top.genlfsr_tb.dut.dout[11] top.genlfsr_tb.dut.dout[10] top.genlfsr_tb.dut.dout[9] top.genlfsr_tb.dut.dout[8] top.genlfsr_tb.dut.dout[7] top.genlfsr_tb.dut.dout[6] top.genlfsr_tb.dut.dout[5] top.genlfsr_tb.dut.dout[4] top.genlfsr_tb.dut.dout[3] top.genlfsr_tb.dut.dout[2] top.genlfsr_tb.dut.dout[1] top.genlfsr_tb.dut.dout[0]
 @28
 top.genlfsr_tb.clk

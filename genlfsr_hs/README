@@ -6,3 +6,9 @@ The code is published as public domain, in the hope, that it may be useful
 for someone...
 The first version of the code was published on 20.02.2007 on the usenet alt.sources group.
 See https://groups.google.com/g/alt.sources/c/Xyt2HSLcsDI 
+
+This version uses two LFSRs shifted in opposite directions to enable producing
+longer random values without performing multibit shifts in a single clock
+period (which increased the complexity of the generated HW).
+
+That concept must be yet tested with the statistical tests.
