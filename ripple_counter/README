@@ -1,0 +1,24 @@
+Originally posted to: https://support.xilinx.com/s/question/0D74U000008cXUFSA2/detail?language=en_US
+
+In the system we are building, there is a need to count high speed pulses (frequency ca. 100 MHz to 300 MHz or even more). To run at the maximum speed, the ripple counter should be created in the FPGA as a sequence of T-type flipflops. Of course such a counter will count in NB (natural binary) code, so it will be difficult to read it out (no Gray code may be used). That problem may be solved by using two counters running with gated clock. The first counter will use the clock anded with the enable signal, and the second - clock anded with the inverse of the enable signal. Each counter may be read when it is not counting (after certain settling time). Remembering the previous count, we may find out how many pulses have been received when that counter was active. Of course, switching the enable signal may generate the false pulse, but that one-pulse error is acceptable.
+
+The idea is simple, but implementing it in Vivado is not. I know that it is a highly non-standard use or even abuse of the FGPA. Probably the output of each flipflop should have the ASYNC_REG attribute, but that's not sufficient. How to constrain such a nonstandard design to ensure that the resources are allocated properly and the routing delays are small? Are there any templates or examples?
+
+I have created a minimalistic reproducer of what's needed. Of course, the read design will be integrated with other cores in the FPGA. Here only the basic things are implemented:
+
+    entity ripple_counters is
+      generic (
+        width : integer := 8);
+      port (
+        clk     : in  std_logic;
+        rd_clk  : in  std_logic;
+        rst     : in  std_logic;
+        sel     : in  std_logic;
+        ena     : in  std_logic;
+        count_a : out std_logic_vector(width-1 downto 0);
+        count_b : out std_logic_vector(width-1 downto 0)
+        );
+    end ripple_counters;
+
+The counted pulses are delivered via `clk` input. The counters are read in the `rd_clk` clock domain. The active counter is selected with `sel`, and both counters are enabled with `ena`. 
+

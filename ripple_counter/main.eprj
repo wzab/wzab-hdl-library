@@ -1,0 +1,2 @@
+vhdl work src/ripple_counters.vhd
+xdc src/constraints.xdc
