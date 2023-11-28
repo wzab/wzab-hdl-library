@@ -14,9 +14,9 @@ oval1.write(0x13)
 oval2.write(0x7)
 oval3.write(0x31230000)
 cbus.bus_delay(250)
-print hex(ival1.read())
-print hex(ival2.read())
-print hex(ival3.read())
+print(hex(ival1.read()))
+print(hex(ival2.read()))
+print(hex(ival3.read()))
 #Access below should generate an exception
 buggy.write(3)
 
