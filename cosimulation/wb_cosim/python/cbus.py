@@ -23,7 +23,7 @@ def bus_delay(time_ns):
     cmd="T"+("%8.8x" % time_ns)+"\n"
     wrpip.write(cmd)
     wrpip.flush()
-print "Python controller ready. Start the simulation!\n"
+print("Python controller ready. Start the simulation!\n")
 wrpip=open("/tmp/wrpipe","w")
 rdpip=open("/tmp/rdpipe","r")
 
